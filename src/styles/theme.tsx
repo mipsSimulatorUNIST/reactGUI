@@ -20,6 +20,13 @@ export const ActiveTab = styled.button<StyledButtonProps>`
   transition: 0.1s background-color ease-in-out;
 `;
 
+export const MainScreen = styled.body`
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+`;
+
 export const Body = styled.body`
   text-align: center;
   width: 100vh;
@@ -29,9 +36,14 @@ export const Body = styled.body`
   background-color: powderblue;
 `;
 
-export const MainScreen = styled.body`
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
+export const AssemblerBody = styled(Body)`
+  background-color: gray;
+`;
+
+export const SimulatorBody = styled(Body)`
+  background-color: skyblue;
+`;
+
+export const CacheBody = styled(Body)`
+  background-color: pink;
 `;

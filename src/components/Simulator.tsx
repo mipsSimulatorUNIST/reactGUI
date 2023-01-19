@@ -1,8 +1,8 @@
 import React from "react";
-import {Body} from "../styles/theme";
+import {SimulatorBody} from "../styles/theme";
 
 const Simulator = () => {
-  return <Body />;
+  return <SimulatorBody />;
 };
 
 export default Simulator;

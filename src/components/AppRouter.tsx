@@ -14,7 +14,7 @@ const AppRouter = () => {
         <Routes>
           <Route path="/" element={<Assembler />} />
           <Route path="/simulator" element={<Simulator />} />
-          <Route path="/cache" element={<CacheViewer />} />
+          <Route path="/cacheviewer" element={<CacheViewer />} />
         </Routes>
       </MainScreen>
     </BrowserRouter>

@@ -1,8 +1,8 @@
 import React from "react";
-import {Body} from "../styles/theme";
+import {CacheBody} from "../styles/theme";
 
 const CacheViewer = () => {
-  return <Body />;
+  return <CacheBody />;
 };
 
 export default CacheViewer;

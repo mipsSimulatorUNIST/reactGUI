@@ -1,8 +1,8 @@
 import React from "react";
-import {Body} from "../styles/theme";
+import {AssemblerBody} from "../styles/theme";
 
 const Assembler = () => {
-  return <Body />;
+  return <AssemblerBody />;
 };
 
 export default Assembler;
