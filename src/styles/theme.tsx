@@ -19,3 +19,19 @@ export const ActiveTab = styled.button<StyledButtonProps>`
   cursor: pointer;
   transition: 0.1s background-color ease-in-out;
 `;
+
+export const Body = styled.body`
+  text-align: center;
+  width: 100vh;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  background-color: powderblue;
+`;
+
+export const MainScreen = styled.body`
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+`;
