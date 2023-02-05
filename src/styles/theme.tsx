@@ -22,15 +22,17 @@ export const ActiveTab = styled.button<StyledButtonProps>`
 
 export const MainScreen = styled.div`
   text-align: center;
+  width: 1200px;
   display: flex;
   justify-content: center;
   flex-direction: row;
+  padding: 30px;
 `;
 
 export const Body = styled.div`
   text-align: center;
-  width: 100vh;
-  height: 100vh;
+  width: 100%;
+  height: 90vh;
   display: flex;
   justify-content: center;
   background-color: powderblue;

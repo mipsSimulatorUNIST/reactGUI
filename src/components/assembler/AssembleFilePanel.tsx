@@ -2,7 +2,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import {
   selectedAssemblyFileState,
   selectedFileContentState,
-} from "../../recoil/tab";
+} from "../../recoil/state";
 import { AssembleFilePanelDisplay } from "../../styles/theme";
 import TextTab from "../TextTab";
 import { useEffect } from "react";

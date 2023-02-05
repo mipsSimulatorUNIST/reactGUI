@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 import {
   selectedAssemblyFileState,
   selectedFileContentState,
-} from "../../recoil/tab";
+} from "../../recoil/state";
 import { useState } from "react";
 import { assemble } from "mips-simulator-js/dist/main.js";
 import { useEffect } from "react";

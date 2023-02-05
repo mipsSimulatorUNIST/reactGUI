@@ -1,7 +1,7 @@
 import { FileSelctorDisplay } from "../../styles/theme";
 import { useRef } from "react";
 import { useRecoilState } from "recoil";
-import { selectedAssemblyFileState } from "../../recoil/tab";
+import { selectedAssemblyFileState } from "../../recoil/state";
 
 const FileSelctor = () => {
   const assemblerFileList = useRef<string[]>([
