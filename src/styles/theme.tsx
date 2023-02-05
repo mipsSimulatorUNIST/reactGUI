@@ -27,7 +27,7 @@ export const MainScreen = styled.body`
   flex-direction: row;
 `;
 
-export const Body = styled.body`
+export const Body = styled.div`
   text-align: center;
   width: 100vh;
   height: 100vh;
@@ -38,6 +38,22 @@ export const Body = styled.body`
 
 export const AssemblerBody = styled(Body)`
   background-color: gray;
+  flex-direction: row;
+`;
+
+export const FileSelctorDisplay = styled.div`
+  background-color: yellow;
+  flex: 1;
+`;
+
+export const AssembleFilePanelDisplay = styled.div`
+  background-color: green;
+  flex: 2;
+`;
+
+export const BinaryFilePanelDisplay = styled.div`
+  background-color: red;
+  flex: 2;
 `;
 
 export const SimulatorBody = styled(Body)`
