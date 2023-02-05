@@ -23,7 +23,7 @@ const AssembleFilePanel = () => {
     };
     const filePath = `sample_input/${selectedAssemblyFile}`;
     fetchFile(filePath);
-  }, [selectedAssemblyFile]);
+  }, [selectedAssemblyFile, setFileContent]);
 
   return (
     <AssembleFilePanelDisplay>

@@ -1,5 +1,4 @@
-import { atom, selector } from "recoil";
-import { assemble } from "mips-simulator-js/dist/main.js";
+import { atom } from "recoil";
 
 export const selectedAssemblyFileState = atom<string>({
   key: "selectedAssemblyFileState",

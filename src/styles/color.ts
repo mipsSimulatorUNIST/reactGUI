@@ -1,3 +1,4 @@
+export const ROOTBG = "#4f4f4f";
 export const BG = "#1E1E1E";
 export const GREY33 = "#333333";
 export const GREYD4 = "#D4D4D4";
