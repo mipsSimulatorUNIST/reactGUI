@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 const TextTab = ({ title, data }: { title: string; data: string[] }) => {
   return (
     <>

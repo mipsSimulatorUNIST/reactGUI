@@ -6,24 +6,7 @@ export const selectedAssemblyFileState = atom<string>({
   default: "example1.s",
 });
 
-const fetchFile = async (filePath: string) => {
-  let data: string[] = [];
-
-  return data;
-};
-
-export const binaryConvertedState = selector({
-  key: "binaryConvertedState",
-  get: async ({ get }) => {
-    const filename = get(selectedAssemblyFileState);
-    const filePath = `sample_input/${filename}`;
-    let data: string[] = [];
-    await fetch(filePath)
-      .then((response) => response.text())
-      .then((text) => {
-        data = text.split("\n");
-      });
-    if (data) return assemble(data).split("\n");
-    return [];
-  },
+export const selectedFileContentState = atom<string[] | null>({
+  key: "selectedFileContentState",
+  default: ["loading..."],
 });
