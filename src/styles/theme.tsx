@@ -20,7 +20,7 @@ export const ActiveTab = styled.button<StyledButtonProps>`
   transition: 0.1s background-color ease-in-out;
 `;
 
-export const MainScreen = styled.body`
+export const MainScreen = styled.div`
   text-align: center;
   display: flex;
   justify-content: center;
