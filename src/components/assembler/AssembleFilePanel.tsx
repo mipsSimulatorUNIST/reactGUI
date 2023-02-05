@@ -1,7 +1,12 @@
 import { useRecoilValue } from "recoil";
-import { selectedAssemblyFileState } from "../../recoil/tab";
+import {
+  binaryConvertedState,
+  selectedAssemblyFileState,
+} from "../../recoil/tab";
 import { AssembleFilePanelDisplay } from "../../styles/theme";
 import TextTab from "../TextTab";
+import { useEffect, useState } from "react";
+import { assemble } from "mips-simulator-js/dist/main.js";
 const datas = [
   "example1.s",
   "example2.s",
@@ -13,9 +18,11 @@ const datas = [
 ];
 const AssembleFilePanel = () => {
   const selectedAssemblyFile = useRecoilValue(selectedAssemblyFileState);
+  const binaryConverted = useRecoilValue(binaryConvertedState);
+
   return (
     <AssembleFilePanelDisplay>
-      <TextTab title={selectedAssemblyFile} data={datas} />
+      <TextTab title={selectedAssemblyFile} data={binaryConverted} />
     </AssembleFilePanelDisplay>
   );
 };
