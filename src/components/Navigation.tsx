@@ -1,9 +1,10 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import { NavigationDisplay } from "../styles/theme";
 
 const Navigation = () => {
   return (
-    <nav>
+    <NavigationDisplay>
       <div>
         <Link to="/">홈</Link>
       </div>
@@ -13,7 +14,7 @@ const Navigation = () => {
       <div>
         <Link to="/cacheviewer">캐쉬</Link>
       </div>
-    </nav>
+    </NavigationDisplay>
   );
 };
 
