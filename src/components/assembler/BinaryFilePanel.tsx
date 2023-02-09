@@ -1,13 +1,14 @@
-import { BinaryFilePanelDisplay } from "../../styles/theme";
-import { useRecoilValue } from "recoil";
+import {BinaryFilePanelDisplay} from "../../styles/theme";
+import {useRecoilValue} from "recoil";
 import {
   selectedAssemblyFileState,
   selectedFileContentState,
 } from "../../recoil/state";
-import { useState } from "react";
-import { assemble } from "mips-simulator-js/dist/main.js";
-import { useEffect } from "react";
+import {useState} from "react";
+import {assemble} from "mips-simulator-js/dist/main.js";
+import {useEffect} from "react";
 import TextTab from "../TextTab";
+import {HL_GREEN} from "../../styles/color";
 
 const BinaryFilePanel = () => {
   const selectedAssemblyFile = useRecoilValue(selectedAssemblyFileState);
@@ -26,6 +27,8 @@ const BinaryFilePanel = () => {
       <TextTab
         title={selectedAssemblyFile.replace(".s", ".o")}
         data={binaryInstruction ? binaryInstruction : []}
+        num={[2, 10, 11]}
+        highlightColor={HL_GREEN}
       />
     </BinaryFilePanelDisplay>
   );

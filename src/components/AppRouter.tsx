@@ -1,6 +1,6 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { BackGround, MainScreen } from "../styles/theme";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {BackGround, MainScreen} from "../styles/theme";
 import Assembler from "./Assembler";
 import CacheViewer from "./CacheViewer";
 import Navigation from "./Navigation";

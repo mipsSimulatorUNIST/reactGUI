@@ -1,0 +1,37 @@
+import styled from "styled-components";
+import {BG, GREY85, GREYD4} from "./color";
+
+export const PanelTitle = styled.div`
+  display: flex;
+  color: white;
+  width: 150px;
+  height: 42px;
+  background-color: ${BG};
+  font-family: RobotoMonoTTFBold;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const MainNumber = styled.div`
+  width: 46px;
+  margin-right: 12px;
+  text-align: right;
+  font-size: 16px;
+  color: ${GREY85};
+  font-family: RobotoMonoTTFMedium;
+`;
+
+interface textHighlight {
+  highlight: boolean;
+  color: string;
+}
+
+export const MainText = styled.div<textHighlight>`
+  flex: 1;
+  padding-left: 18px;
+  font-size: 16px;
+  color: ${GREYD4};
+  white-space: pre-wrap;
+  font-family: RobotoMonoTTFMedium;
+  background-color: ${(props) => (props.highlight ? props.color : BG)};
+`;
