@@ -1,4 +1,4 @@
-import {FileSelctorDisplay} from "../../styles/theme";
+import {FileSelctorDisplay, SelectedFile} from "../../styles/theme";
 import {useRef} from "react";
 import {useRecoilState} from "recoil";
 import {selectedAssemblyFileState} from "../../recoil/state";
@@ -44,20 +44,15 @@ const FileSelctor = () => {
           <div>
             {assemblerFileList.current.map((ele, index) => {
               return (
-                <div
+                <SelectedFile
                   id={ele}
                   key={index}
                   onClick={handleSelect}
-                  style={{
-                    color: GREYCC,
-                    backgroundColor: selectedAssemblyFile === ele ? "red" : "",
-                    fontFamily: "RobotoMonoTTFLight",
-                    fontSize: "14px",
-                    paddingLeft: "4px",
-                  }}
+                  selectedAssemblyFile={selectedAssemblyFile}
+                  element={ele}
                 >
                   {ele}
-                </div>
+                </SelectedFile>
               );
             })}
           </div>

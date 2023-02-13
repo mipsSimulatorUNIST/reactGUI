@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 import styled from "styled-components";
-import {ROOTBG, GREYD4, GREY33} from "./color";
+import {ROOTBG, GREYD4, GREY33, GREYCC, HL_BLUE} from "./color";
 
 export const BackGround = styled.div`
   background-color: ${ROOTBG};
@@ -34,15 +34,15 @@ export const AssemblerBody = styled(Body)`
 
 export const FileSelctorDisplay = styled.div`
   background-color: ${ROOTBG};
-  flex: 1;
+  width: 200px;
 `;
 
 export const AssembleFilePanelDisplay = styled.div`
-  flex: 2.5;
+  width: 592px;
 `;
 
 export const BinaryFilePanelDisplay = styled.div`
-  flex: 2.5;
+  width: 592px;
 `;
 
 export const SimulatorBody = styled(Body)`
@@ -59,4 +59,25 @@ export const StyledLink = styled(Link)`
   justify-content: center;
   width: 56px;
   height: 56px;
+`;
+
+interface selected {
+  selectedAssemblyFile: string;
+  element: string;
+}
+
+export const SelectedFile = styled.div<selected>`
+  flex: 2.5;
+  color: ${GREYCC};
+  background-color: ${(props) =>
+    props.selectedAssemblyFile === props.element ? HL_BLUE : ""};
+  font-family: RobotoMonoTTFLight;
+  font-size: 14px;
+  padding-left: 4px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  border: solid;
+  border-color: #007fd4;
+  border-width: ${(props) =>
+    props.selectedAssemblyFile === props.element ? "1px" : "0px"};
 `;
