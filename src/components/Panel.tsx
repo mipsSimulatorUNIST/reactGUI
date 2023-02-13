@@ -6,8 +6,7 @@ import { assemblyExecutedLine } from "../recoil/state";
 import { useRecoilState } from "recoil";
 
 const Panel = ({ title, isBinary }: { title: string; isBinary: boolean }) => {
-  const [highlightNumbers, setHighlightNumbers] =
-    useRecoilState(assemblyExecutedLine);
+  const [, setHighlightNumbers] = useRecoilState(assemblyExecutedLine);
 
   return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>

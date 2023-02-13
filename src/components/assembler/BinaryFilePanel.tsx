@@ -1,5 +1,5 @@
 import { BinaryFilePanelDisplay } from "../../styles/theme";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
   assemblyExecutedLine,
   selectedAssemblyFileState,
@@ -14,26 +14,50 @@ import { ASSEMTESTDATA } from "../../assets/TestData";
 
 import Panel from "../Panel";
 
+interface IBinaryData {
+  lineNumber: number;
+  data: string;
+}
+interface IMapDetail {
+  key: number;
+  assembly: string;
+  binary: IBinaryData[];
+}
+
 const BinaryFilePanel = () => {
   const selectedAssemblyFile = useRecoilValue(selectedAssemblyFileState);
   const selectedFileContent = useRecoilValue(selectedFileContentState);
+  const assemblyHighlightNum = useRecoilValue(assemblyExecutedLine);
   const [binaryInstruction, setBinaryInstruction] = useState<string[] | null>(
     null
   );
-  const highlightNumbers = useRecoilValue(assemblyExecutedLine);
+  const [mappingTable, setMappingTable] = useState<IMapDetail[] | null>(null);
+  const [highlightNumbers, setHighlightNumbers] =
+    useState(assemblyHighlightNum);
 
   useEffect(() => {
     if (selectedFileContent) {
       //const { output: binaryLsit, mappingDetail } = assemble(selectedFileContent, true, true);
       const { output: binaryLsit, mappingDetail } = ASSEMTESTDATA;
       setBinaryInstruction(binaryLsit);
+      setMappingTable(mappingDetail);
     }
   }, [selectedFileContent]);
+
+  useEffect(() => {
+    if (mappingTable && assemblyHighlightNum[0]) {
+      const list = mappingTable[assemblyHighlightNum[0]]["binary"].map(
+        (value) => {
+          return value["lineNumber"];
+        }
+      );
+      setHighlightNumbers(list);
+    }
+  }, [assemblyHighlightNum]);
 
   return (
     <BinaryFilePanelDisplay>
       <Panel title={selectedAssemblyFile.replace(".s", ".o")} isBinary={true} />
-
       <TextTab
         data={binaryInstruction || []}
         highlightNumbers={highlightNumbers}
