@@ -1,29 +1,29 @@
-import {MainNumber, MainText, PanelTitle} from "../styles/\bfont";
-import {BG} from "../styles/color";
+import {
+  MainNumber,
+  MainText,
+  PanelTitle,
+  PanelBody,
+  PanelDisplay,
+} from "../../styles/panelStyle";
+import {BG} from "../../styles/color";
 
-const TextTab = ({
+const Panel = ({
   title,
   data,
   highlightNumbers,
   highlightColor,
+  width,
 }: {
   title: string;
   data: string[];
   highlightNumbers: number[];
   highlightColor: string;
+  width: string;
 }) => {
   return (
-    <div>
-      <div style={{display: "flex", justifyContent: "flex-start"}}>
-        <PanelTitle>{title}</PanelTitle>
-      </div>
-      <div
-        style={{
-          height: "calc(100vh - 42px)",
-          overflow: "scroll",
-          backgroundColor: BG,
-        }}
-      >
+    <PanelDisplay width={width}>
+      <PanelTitle>{title}</PanelTitle>
+      <PanelBody>
         {data.map((ele, index) => {
           return (
             <div
@@ -44,9 +44,9 @@ const TextTab = ({
             </div>
           );
         })}
-      </div>
-    </div>
+      </PanelBody>
+    </PanelDisplay>
   );
 };
 
-export default TextTab;
+export default Panel;

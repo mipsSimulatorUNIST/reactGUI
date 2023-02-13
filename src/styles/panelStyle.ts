@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import {BG, GREY85, GREYD4} from "./color";
 
+export const PanelDisplay = styled.div<{width: string}>`
+  width: ${(props) => props.width};
+`;
+
 export const PanelTitle = styled.div`
   display: flex;
   color: white;
@@ -10,6 +14,12 @@ export const PanelTitle = styled.div`
   font-family: RobotoMonoTTFBold;
   align-items: center;
   justify-content: center;
+`;
+
+export const PanelBody = styled.div`
+  height: calc(100vh - 42px);
+  overflow: scroll;
+  background-color: ${BG};
 `;
 
 export const MainNumber = styled.div`

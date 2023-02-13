@@ -1,10 +1,10 @@
-import {FileSelctorDisplay, SelectedFile} from "../../styles/theme";
+import {FileSelectorDisplay, SelectedFile} from "../../styles/theme";
 import {useRef} from "react";
 import {useRecoilState} from "recoil";
 import {selectedAssemblyFileState} from "../../recoil/state";
-import {GREY373D, GREY58, GREYCC} from "../../styles/color";
+import {GREY373D, GREY58} from "../../styles/color";
 
-const FileSelctor = () => {
+const FileSelector = () => {
   const assemblerFileList = useRef<string[]>([
     "example1.s",
     "example2.s",
@@ -25,7 +25,7 @@ const FileSelctor = () => {
   };
 
   return (
-    <FileSelctorDisplay>
+    <FileSelectorDisplay>
       <div style={{marginTop: "56px"}}>
         <div
           style={{
@@ -58,8 +58,8 @@ const FileSelctor = () => {
           </div>
         </div>
       </div>
-    </FileSelctorDisplay>
+    </FileSelectorDisplay>
   );
 };
 
-export default FileSelctor;
+export default FileSelector;

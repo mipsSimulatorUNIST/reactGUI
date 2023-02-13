@@ -3,8 +3,7 @@ import {
   selectedAssemblyFileState,
   selectedFileContentState,
 } from "../../recoil/state";
-import {AssembleFilePanelDisplay} from "../../styles/theme";
-import TextTab from "../TextTab";
+import Panel from "../common/Panel";
 import {useEffect} from "react";
 import {HL_ORANGE} from "../../styles/color";
 
@@ -27,14 +26,13 @@ const AssembleFilePanel = () => {
   }, [selectedAssemblyFile, setFileContent]);
 
   return (
-    <AssembleFilePanelDisplay>
-      <TextTab
-        title={selectedAssemblyFile}
-        data={fileContent ? fileContent : []}
-        highlightNumbers={[1, 3, 5]}
-        highlightColor={HL_ORANGE}
-      />
-    </AssembleFilePanelDisplay>
+    <Panel
+      title={selectedAssemblyFile}
+      data={fileContent ? fileContent : []}
+      highlightNumbers={[1, 3, 5]}
+      highlightColor={HL_ORANGE}
+      width={"592px"}
+    />
   );
 };
 

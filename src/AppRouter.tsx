@@ -1,10 +1,10 @@
 import React from "react";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-import {BackGround, MainScreen} from "../styles/theme";
-import Assembler from "./Assembler";
-import CacheViewer from "./CacheViewer";
-import Navigation from "./Navigation";
-import Simulator from "./Simulator";
+import {BackGround, MainScreen} from "./styles/theme";
+import Assembler from "./pages/Assembler";
+import CacheViewer from "./pages/CacheViewer";
+import Navigation from "./components/common/Navigation";
+import Simulator from "./pages/Simulator";
 
 const AppRouter = () => {
   return (

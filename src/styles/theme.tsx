@@ -32,17 +32,9 @@ export const AssemblerBody = styled(Body)`
   flex-direction: row;
 `;
 
-export const FileSelctorDisplay = styled.div`
+export const FileSelectorDisplay = styled.div`
   background-color: ${ROOTBG};
   width: 200px;
-`;
-
-export const AssembleFilePanelDisplay = styled.div`
-  width: 592px;
-`;
-
-export const BinaryFilePanelDisplay = styled.div`
-  width: 592px;
 `;
 
 export const SimulatorBody = styled(Body)`

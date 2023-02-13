@@ -1,11 +1,10 @@
 import React, {useState} from "react";
-import {Link} from "react-router-dom";
-import {NavigationDisplay, StyledLink} from "../styles/theme";
+import {NavigationDisplay, StyledLink} from "../../styles/theme";
 
-import assemblerWhite from "../assets/icons/assemblerWhite.png";
-import assemblerGrey from "../assets/icons/assemblerGrey.png";
-import simulatorWhite from "../assets/icons/simulatorWhite.png";
-import simulatorGrey from "../assets/icons/simulatorGrey.png";
+import assemblerWhite from "../../assets/icons/assemblerWhite.png";
+import assemblerGrey from "../../assets/icons/assemblerGrey.png";
+import simulatorWhite from "../../assets/icons/simulatorWhite.png";
+import simulatorGrey from "../../assets/icons/simulatorGrey.png";
 
 const Navigation = () => {
   const [curTab, setCurTab] = useState("assembler");
