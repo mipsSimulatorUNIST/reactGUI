@@ -1,6 +1,6 @@
-import React, {useState} from "react";
-import {Link} from "react-router-dom";
-import {NavigationDisplay, StyledLink} from "../styles/theme";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { NavigationDisplay, StyledLink } from "../styles/theme";
 
 import assemblerWhite from "../assets/icons/assemblerWhite.png";
 import assemblerGrey from "../assets/icons/assemblerGrey.png";

@@ -5,7 +5,7 @@ import {
   assemblyExecutedLine,
   selectedAssemblyFileState,
 } from "../../recoil/state";
-import { GREY373D, GREY58, GREYCC } from "../../styles/color";
+import { GREY373D, GREY58 } from "../../styles/color";
 
 const FileSelctor = () => {
   const assemblerFileList = useRef<string[]>([

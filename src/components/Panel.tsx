@@ -33,12 +33,8 @@ const Panel = ({ title, isBinary }: { title: string; isBinary: boolean }) => {
               height: isHovering.reset ? "28px" : "24px",
               marginRight: "15px",
             }}
-            onMouseOver={() => {
-              setIsHovering({ reset: true, play: false });
-            }}
-            onMouseOut={() => {
-              setIsHovering({ reset: false, play: false });
-            }}
+            onMouseOver={() => setIsHovering({ reset: true, play: false })}
+            onMouseOut={() => setIsHovering({ reset: false, play: false })}
           />
           <img
             src={playIcon}
@@ -50,12 +46,8 @@ const Panel = ({ title, isBinary }: { title: string; isBinary: boolean }) => {
                   : [preValues[0] + 1]
               );
             }}
-            onMouseOver={() => {
-              setIsHovering({ reset: false, play: true });
-            }}
-            onMouseOut={() => {
-              setIsHovering({ reset: false, play: false });
-            }}
+            onMouseOver={() => setIsHovering({ reset: false, play: true })}
+            onMouseOut={() => setIsHovering({ reset: false, play: false })}
             style={{
               width: isHovering.play ? "20px" : "16px",
               height: isHovering.play ? "22px" : "18px",

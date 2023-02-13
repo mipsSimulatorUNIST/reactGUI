@@ -1,5 +1,5 @@
 import { BinaryFilePanelDisplay } from "../../styles/theme";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import {
   assemblyExecutedLine,
   selectedAssemblyFileState,

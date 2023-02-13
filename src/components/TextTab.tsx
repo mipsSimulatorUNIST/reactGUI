@@ -38,12 +38,8 @@ const TextTab = ({
                 setHighlightNumbers([index]);
                 setHoveringNum(index);
               }}
-              onMouseOver={() => {
-                setHoveringNum(index);
-              }}
-              onMouseOut={() => {
-                setHoveringNum(-1);
-              }}
+              onMouseOver={() => setHoveringNum(index)}
+              onMouseOut={() => setHoveringNum(-1)}
             >
               <MainNumber>{index + 1}</MainNumber>
               <MainText
