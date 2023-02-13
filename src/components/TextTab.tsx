@@ -1,5 +1,7 @@
 import { MainNumber, MainText } from "../styles/\bfont";
 import { BG } from "../styles/color";
+import { useRecoilState } from "recoil";
+import { assemblyExecutedLine } from "../recoil/state";
 
 const TextTab = ({
   data,
@@ -10,6 +12,8 @@ const TextTab = ({
   highlightNumbers: number[];
   highlightColor: string;
 }) => {
+  const [, setHighlightNumbers] = useRecoilState(assemblyExecutedLine);
+
   return (
     <div>
       <div
@@ -28,6 +32,7 @@ const TextTab = ({
                 textAlign: "left",
                 backgroundColor: BG,
               }}
+              onClick={() => setHighlightNumbers([index])}
             >
               <MainNumber>{index + 1}</MainNumber>
               <MainText
