@@ -23,6 +23,9 @@ export const PanelBody = styled.div`
   &::-webkit-scrollbar {
     width: 10px;
   }
+  &::-webkit-scrollbar-corner {
+    display: None;
+  }
   &::-webkit-scrollbar-thumb {
     background: ${GREY42};
   }
