@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { PanelTitle } from "../styles/\bfont";
 import playIcon from "../assets/icons/play.png";
 import resetIcon from "../assets/icons/reset.png";
@@ -11,6 +11,7 @@ import { useRecoilState } from "recoil";
 const Panel = ({ title, isBinary }: { title: string; isBinary: boolean }) => {
   const [, setHighlightNumbers] = useRecoilState(assemblyExecutedLine);
   const [fileContent] = useRecoilState(selectedFileContentState);
+  const [isHovering, setIsHovering] = useState({ reset: false, play: false });
 
   return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -28,9 +29,15 @@ const Panel = ({ title, isBinary }: { title: string; isBinary: boolean }) => {
             alt="reset"
             onClick={() => setHighlightNumbers([0])}
             style={{
-              width: "20px",
-              height: "24px",
+              width: isHovering.reset ? "24px" : "20px",
+              height: isHovering.reset ? "28px" : "24px",
               marginRight: "15px",
+            }}
+            onMouseOver={() => {
+              setIsHovering({ reset: true, play: false });
+            }}
+            onMouseOut={() => {
+              setIsHovering({ reset: false, play: false });
             }}
           />
           <img
@@ -43,9 +50,15 @@ const Panel = ({ title, isBinary }: { title: string; isBinary: boolean }) => {
                   : [preValues[0] + 1]
               );
             }}
+            onMouseOver={() => {
+              setIsHovering({ reset: false, play: true });
+            }}
+            onMouseOut={() => {
+              setIsHovering({ reset: false, play: false });
+            }}
             style={{
-              width: " 16px",
-              height: " 18px",
+              width: isHovering.play ? "20px" : "16px",
+              height: isHovering.play ? "22px" : "18px",
               marginRight: "20px",
             }}
           />
