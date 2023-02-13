@@ -1,5 +1,6 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
+  assemblyExecutedLine,
   selectedAssemblyFileState,
   selectedFileContentState,
 } from "../../recoil/state";
@@ -14,6 +15,7 @@ const AssembleFilePanel = () => {
   const [fileContent, setFileContent] = useRecoilState(
     selectedFileContentState
   );
+  const highlightNumbers = useRecoilValue(assemblyExecutedLine);
 
   useEffect(() => {
     const fetchFile = async (filePath: string) => {
@@ -36,7 +38,7 @@ const AssembleFilePanel = () => {
 
       <TextTab
         data={fileContent || []}
-        highlightNumbers={[1, 3, 5]}
+        highlightNumbers={highlightNumbers}
         highlightColor={HL_ORANGE}
       />
     </AssembleFilePanelDisplay>

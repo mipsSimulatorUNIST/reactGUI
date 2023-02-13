@@ -9,3 +9,8 @@ export const selectedFileContentState = atom<string[] | null>({
   key: "selectedFileContentState",
   default: ["loading..."],
 });
+
+export const assemblyExecutedLine = atom<number[]>({
+  key: "assemblyExecutedLine",
+  default: [0],
+});

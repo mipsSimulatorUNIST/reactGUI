@@ -1,6 +1,7 @@
 import { BinaryFilePanelDisplay } from "../../styles/theme";
 import { useRecoilValue } from "recoil";
 import {
+  assemblyExecutedLine,
   selectedAssemblyFileState,
   selectedFileContentState,
 } from "../../recoil/state";
@@ -19,6 +20,7 @@ const BinaryFilePanel = () => {
   const [binaryInstruction, setBinaryInstruction] = useState<string[] | null>(
     null
   );
+  const highlightNumbers = useRecoilValue(assemblyExecutedLine);
 
   useEffect(() => {
     if (selectedFileContent) {
@@ -34,7 +36,7 @@ const BinaryFilePanel = () => {
 
       <TextTab
         data={binaryInstruction || []}
-        highlightNumbers={[2, 10, 11]}
+        highlightNumbers={highlightNumbers}
         highlightColor={HL_GREEN}
       />
     </BinaryFilePanelDisplay>
