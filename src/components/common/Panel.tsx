@@ -4,6 +4,7 @@ import {
   PanelTitle,
   PanelBody,
   PanelDisplay,
+  PanelMargin,
 } from "../../styles/panelStyle";
 import {BG} from "../../styles/color";
 
@@ -44,6 +45,7 @@ const Panel = ({
             </div>
           );
         })}
+        <PanelMargin />
       </PanelBody>
     </PanelDisplay>
   );

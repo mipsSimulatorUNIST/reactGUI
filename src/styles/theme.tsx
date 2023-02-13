@@ -1,18 +1,18 @@
 import {Link} from "react-router-dom";
 import styled from "styled-components";
-import {ROOTBG, GREYD4, GREY33, GREYCC, HL_BLUE} from "./color";
+import {ROOTBG, GREYD4, GREY33, GREYCC, HL_BLUE, BG} from "./color";
 
 export const BackGround = styled.div`
   background-color: ${ROOTBG};
+  border: 2px solid ${BG};
+  display: flex;
+  justify-content: center;
 `;
 
 export const MainScreen = styled.div`
-  flex: 1;
-  height: 100vh;
   background-color: ${GREYD4};
   text-align: center;
   display: flex;
-  justify-content: center;
   flex-direction: row;
 `;
 
