@@ -27,7 +27,7 @@ const BinaryFilePanel = () => {
       <TextTab
         title={selectedAssemblyFile.replace(".s", ".o")}
         data={binaryInstruction ? binaryInstruction : []}
-        num={[2, 10, 11]}
+        highlightNumbers={[2, 10, 11]}
         highlightColor={HL_GREEN}
       />
     </BinaryFilePanelDisplay>

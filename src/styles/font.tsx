@@ -22,7 +22,7 @@ export const MainNumber = styled.div`
 `;
 
 interface textHighlight {
-  highlight: boolean;
+  isHighlighted: boolean;
   color: string;
 }
 
@@ -33,5 +33,5 @@ export const MainText = styled.div<textHighlight>`
   color: ${GREYD4};
   white-space: pre-wrap;
   font-family: RobotoMonoTTFMedium;
-  background-color: ${(props) => (props.highlight ? props.color : BG)};
+  background-color: ${(props) => (props.isHighlighted ? props.color : BG)};
 `;

@@ -4,12 +4,12 @@ import {BG} from "../styles/color";
 const TextTab = ({
   title,
   data,
-  num,
+  highlightNumbers,
   highlightColor,
 }: {
   title: string;
   data: string[];
-  num: number[];
+  highlightNumbers: number[];
   highlightColor: string;
 }) => {
   return (
@@ -19,7 +19,6 @@ const TextTab = ({
       </div>
       <div
         style={{
-          // flex: 1,
           height: "calc(100vh - 42px)",
           overflow: "scroll",
           backgroundColor: BG,
@@ -35,8 +34,11 @@ const TextTab = ({
                 backgroundColor: BG,
               }}
             >
-              <MainNumber>{index}</MainNumber>
-              <MainText highlight={num.includes(index)} color={highlightColor}>
+              <MainNumber>{index + 1}</MainNumber>
+              <MainText
+                isHighlighted={highlightNumbers.includes(index)}
+                color={highlightColor}
+              >
                 {ele}
               </MainText>
             </div>

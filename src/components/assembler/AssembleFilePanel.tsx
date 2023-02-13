@@ -31,7 +31,7 @@ const AssembleFilePanel = () => {
       <TextTab
         title={selectedAssemblyFile}
         data={fileContent ? fileContent : []}
-        num={[1, 3, 5]}
+        highlightNumbers={[1, 3, 5]}
         highlightColor={HL_ORANGE}
       />
     </AssembleFilePanelDisplay>
