@@ -1,4 +1,4 @@
-import { MainNumber, MainText, PanelTitle } from "../styles/\bfont";
+import { MainNumber, MainText } from "../styles/\bfont";
 import { BG } from "../styles/color";
 
 const TextTab = ({

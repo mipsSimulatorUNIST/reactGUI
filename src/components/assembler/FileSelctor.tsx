@@ -1,8 +1,11 @@
-import {FileSelctorDisplay, SelectedFile} from "../../styles/theme";
-import {useRef} from "react";
-import {useRecoilState} from "recoil";
-import {selectedAssemblyFileState} from "../../recoil/state";
-import {GREY373D, GREY58, GREYCC} from "../../styles/color";
+import { FileSelctorDisplay, SelectedFile } from "../../styles/theme";
+import { useRef } from "react";
+import { useRecoilState } from "recoil";
+import {
+  assemblyExecutedLine,
+  selectedAssemblyFileState,
+} from "../../recoil/state";
+import { GREY373D, GREY58, GREYCC } from "../../styles/color";
 
 const FileSelctor = () => {
   const assemblerFileList = useRef<string[]>([
@@ -18,15 +21,17 @@ const FileSelctor = () => {
   const [selectedAssemblyFile, setSelectedAssemblyFile] = useRecoilState(
     selectedAssemblyFileState
   );
+  const [, setHighlightNumbers] = useRecoilState(assemblyExecutedLine);
 
   const handleSelect = (evt: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const targetId = evt.currentTarget.id;
     setSelectedAssemblyFile(targetId);
+    setHighlightNumbers([0]);
   };
 
   return (
     <FileSelctorDisplay>
-      <div style={{marginTop: "56px"}}>
+      <div style={{ marginTop: "56px" }}>
         <div
           style={{
             backgroundColor: GREY373D,
@@ -39,8 +44,8 @@ const FileSelctor = () => {
         >
           sample_input
         </div>
-        <div style={{display: "flex", flexDirection: "row"}}>
-          <div style={{width: "20px", borderRight: `1px  solid ${GREY58}`}} />
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <div style={{ width: "20px", borderRight: `1px  solid ${GREY58}` }} />
           <div>
             {assemblerFileList.current.map((ele, index) => {
               return (
