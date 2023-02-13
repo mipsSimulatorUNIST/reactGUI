@@ -46,12 +46,12 @@ const BinaryFilePanel = () => {
 
   useEffect(() => {
     if (mappingTable && assemblyHighlightNum[0]) {
-      const list = mappingTable[assemblyHighlightNum[0]]["binary"].map(
-        (value) => {
-          return value["lineNumber"];
-        }
-      );
-      setHighlightNumbers(list);
+      const hightlightList = mappingTable[assemblyHighlightNum[0]][
+        "binary"
+      ].map((value) => {
+        return value["lineNumber"];
+      });
+      setHighlightNumbers(hightlightList);
     }
   }, [assemblyHighlightNum]);
 
