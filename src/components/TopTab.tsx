@@ -8,7 +8,7 @@ import {
 } from "../recoil/state";
 import { useRecoilState } from "recoil";
 
-const Panel = ({ title, isBinary }: { title: string; isBinary: boolean }) => {
+const TopTab = ({ title, isBinary }: { title: string; isBinary: boolean }) => {
   const [, setHighlightNumbers] = useRecoilState(assemblyExecutedLine);
   const [fileContent] = useRecoilState(selectedFileContentState);
   const [isHovering, setIsHovering] = useState({ reset: false, play: false });
@@ -60,4 +60,4 @@ const Panel = ({ title, isBinary }: { title: string; isBinary: boolean }) => {
   );
 };
 
-export default Panel;
+export default TopTab;

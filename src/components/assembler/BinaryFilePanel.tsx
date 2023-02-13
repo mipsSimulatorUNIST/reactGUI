@@ -12,7 +12,7 @@ import TextTab from "../TextTab";
 import { HL_GREEN } from "../../styles/color";
 import { ASSEMTESTDATA } from "../../assets/TestData";
 
-import Panel from "../Panel";
+import TopTab from "../TopTab";
 
 interface IBinaryData {
   lineNumber: number;
@@ -57,7 +57,10 @@ const BinaryFilePanel = () => {
 
   return (
     <BinaryFilePanelDisplay>
-      <Panel title={selectedAssemblyFile.replace(".s", ".o")} isBinary={true} />
+      <TopTab
+        title={selectedAssemblyFile.replace(".s", ".o")}
+        isBinary={true}
+      />
       <TextTab
         data={binaryInstruction || []}
         highlightNumbers={highlightNumbers}

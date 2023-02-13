@@ -8,7 +8,7 @@ import { AssembleFilePanelDisplay } from "../../styles/theme";
 import TextTab from "../TextTab";
 import { useEffect } from "react";
 import { HL_ORANGE } from "../../styles/color";
-import Panel from "../Panel";
+import TopTab from "../TopTab";
 
 const AssembleFilePanel = () => {
   const selectedAssemblyFile = useRecoilValue(selectedAssemblyFileState);
@@ -31,7 +31,7 @@ const AssembleFilePanel = () => {
 
   return (
     <AssembleFilePanelDisplay>
-      <Panel
+      <TopTab
         title={selectedAssemblyFile.replace(".s", ".o")}
         isBinary={false}
       />
