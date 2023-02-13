@@ -1,6 +1,6 @@
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import {ROOTBG, GREYD4, GREY33, GREYCC, HL_BLUE} from "./color";
+import { ROOTBG, GREYD4, GREY33, GREYCC, HL_BLUE } from "./color";
 
 export const BackGround = styled.div`
   background-color: ${ROOTBG};
@@ -59,6 +59,15 @@ export const StyledLink = styled(Link)`
   justify-content: center;
   width: 56px;
   height: 56px;
+`;
+
+export const StyledBtn = styled.image`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background-color: red;
 `;
 
 interface selected {

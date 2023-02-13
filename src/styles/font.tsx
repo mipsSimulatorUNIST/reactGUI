@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {BG, GREY85, GREYD4} from "./color";
+import { BG, GREY85, GREYD4 } from "./color";
 
 export const PanelTitle = styled.div`
   display: flex;

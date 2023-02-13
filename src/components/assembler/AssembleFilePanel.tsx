@@ -1,12 +1,13 @@
-import {useRecoilState, useRecoilValue} from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
   selectedAssemblyFileState,
   selectedFileContentState,
 } from "../../recoil/state";
-import {AssembleFilePanelDisplay} from "../../styles/theme";
+import { AssembleFilePanelDisplay } from "../../styles/theme";
 import TextTab from "../TextTab";
-import {useEffect} from "react";
-import {HL_ORANGE} from "../../styles/color";
+import { useEffect } from "react";
+import { HL_ORANGE } from "../../styles/color";
+import Panel from "../Panel";
 
 const AssembleFilePanel = () => {
   const selectedAssemblyFile = useRecoilValue(selectedAssemblyFileState);
@@ -28,9 +29,13 @@ const AssembleFilePanel = () => {
 
   return (
     <AssembleFilePanelDisplay>
+      <Panel
+        title={selectedAssemblyFile.replace(".s", ".o")}
+        isBinary={false}
+      />
+
       <TextTab
-        title={selectedAssemblyFile}
-        data={fileContent ? fileContent : []}
+        data={fileContent || []}
         highlightNumbers={[1, 3, 5]}
         highlightColor={HL_ORANGE}
       />
