@@ -1,7 +1,13 @@
-export const ROOTBG = "#4f4f4f";
+export const ROOTBG = "#252526";
 export const BG = "#1E1E1E";
 export const GREY33 = "#333333";
 export const GREYD4 = "#D4D4D4";
 export const GREY85 = "#858585";
 export const GREYCC = "#cccccc";
 export const GREY37 = "#373737";
+export const GREY373D = "#37373D";
+export const GREY58 = "#585858";
+export const GREY42 = "#424242";
+export const HL_ORANGE = "rgba(254, 146, 112, 0.33)"; // highlight orange color
+export const HL_GREEN = "rgba(196, 233, 118, 0.33)"; // highlight green color
+export const HL_BLUE = "rgba(0, 127, 212, 0.33)";
