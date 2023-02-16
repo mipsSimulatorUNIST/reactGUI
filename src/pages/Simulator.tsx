@@ -77,7 +77,6 @@ const Simulator = () => {
       <button onClick={handleCounterNext}>next</button>
       <AssembleFilePanel />
       <Panel
-        title={"test"}
         data={register ? register : ["loading"]}
         highlightNumbers={[1, 3, 5]}
         highlightColor={HL_ORANGE}

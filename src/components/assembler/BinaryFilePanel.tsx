@@ -23,7 +23,6 @@ interface IMapDetail {
   binary: IBinaryData[];
 }
 
-
 const BinaryFilePanel = () => {
   const selectedAssemblyFile = useRecoilValue(selectedAssemblyFileState);
   const selectedFileContent = useRecoilValue(selectedFileContentState);
@@ -37,9 +36,9 @@ const BinaryFilePanel = () => {
 
   useEffect(() => {
     if (selectedFileContent) {
-      //const { output: binaryLsit, mappingDetail } = assemble(selectedFileContent, true, true);
-      const { output: binaryLsit, mappingDetail } = ASSEMTESTDATA;
-      setBinaryInstruction(binaryLsit);
+      //const { output: binaryList, mappingDetail } = assemble(selectedFileContent, true, true);
+      const { output: binaryList, mappingDetail } = ASSEMTESTDATA;
+      setBinaryInstruction(binaryList);
       setMappingTable(mappingDetail);
     }
   }, [selectedFileContent]);
