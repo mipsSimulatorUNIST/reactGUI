@@ -6,11 +6,12 @@ import {
 } from "../../recoil/state";
 import { useState } from "react";
 import { useEffect } from "react";
-import { assemble } from "mips-simulator-js";
+import { assemble } from "mips-simulator-js/dist";
 import Panel from "../common/Panel";
 import { HL_GREEN } from "../../styles/color";
 
 import TopTab from "../common/TopTab";
+import { ASSEMTESTDATA } from "../../assets/TestData";
 
 interface IBinaryData {
   lineNumber: number;
@@ -35,11 +36,12 @@ const BinaryFilePanel = () => {
 
   useEffect(() => {
     if (selectedFileContent) {
-      const { output: binaryList, mappingDetail } = assemble(
-        selectedFileContent,
-        true,
-        true
-      );
+      // const { output: binaryList, mappingDetail } = assemble(
+      //   selectedFileContent,
+      //   true,
+      //   true
+      // );
+      const { output: binaryList, mappingDetail } = ASSEMTESTDATA;
       setBinaryInstructions(binaryList);
       setMappingTable(mappingDetail);
     }
