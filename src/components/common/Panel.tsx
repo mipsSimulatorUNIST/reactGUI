@@ -5,10 +5,10 @@ import {
   PanelDisplay,
   PanelMargin,
 } from "../../styles/panelStyle";
-import {BG, GREYCC} from "../../styles/color";
-import {useRecoilState} from "recoil";
-import {assemblyExecutedLine} from "../../recoil/state";
-import {useState} from "react";
+import { BG, GREYCC } from "../../styles/color";
+import { useRecoilState } from "recoil";
+import { assemblyExecutedLine } from "../../recoil/state";
+import { useState } from "react";
 
 const Panel = ({
   data,

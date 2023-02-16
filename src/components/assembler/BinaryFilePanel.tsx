@@ -6,9 +6,9 @@ import {
 } from "../../recoil/state";
 import { useState } from "react";
 import { useEffect } from "react";
+import { assemble } from "mips-simulator-js";
 import Panel from "../common/Panel";
 import { HL_GREEN } from "../../styles/color";
-import { ASSEMTESTDATA } from "../../assets/TestData";
 
 import TopTab from "../common/TopTab";
 
@@ -26,7 +26,7 @@ const BinaryFilePanel = () => {
   const selectedAssemblyFile = useRecoilValue(selectedAssemblyFileState);
   const selectedFileContent = useRecoilValue(selectedFileContentState);
   const assemblyHighlightNum = useRecoilValue(assemblyExecutedLine);
-  const [binaryInstruction, setBinaryInstruction] = useState<string[] | null>(
+  const [binaryInstructions, setBinaryInstructions] = useState<string[] | null>(
     null
   );
   const [mappingTable, setMappingTable] = useState<IMapDetail[] | null>(null);
@@ -35,9 +35,12 @@ const BinaryFilePanel = () => {
 
   useEffect(() => {
     if (selectedFileContent) {
-      //const { output: binaryLsit, mappingDetail } = assemble(selectedFileContent, true, true);
-      const { output: binaryLsit, mappingDetail } = ASSEMTESTDATA;
-      setBinaryInstruction(binaryLsit);
+      const { output: binaryList, mappingDetail } = assemble(
+        selectedFileContent,
+        true,
+        true
+      );
+      setBinaryInstructions(binaryList);
       setMappingTable(mappingDetail);
     }
   }, [selectedFileContent]);
@@ -60,7 +63,7 @@ const BinaryFilePanel = () => {
         isBinary={true}
       />
       <Panel
-        data={binaryInstruction ? binaryInstruction : []}
+        data={binaryInstructions || []}
         highlightNumbers={highlightNumbers}
         highlightColor={HL_GREEN}
         width={"592px"}
