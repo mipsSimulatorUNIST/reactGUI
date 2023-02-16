@@ -1,13 +1,13 @@
-import {useRecoilValue} from "recoil";
+import { useRecoilValue } from "recoil";
 import {
   selectedAssemblyFileState,
   selectedFileContentState,
 } from "../../recoil/state";
-import {useState} from "react";
-import {assemble} from "mips-simulator-js/dist/main.js";
-import {useEffect} from "react";
+import { useState } from "react";
+import { assemble } from "mips-simulator-js";
+import { useEffect } from "react";
 import Panel from "../common/Panel";
-import {HL_GREEN} from "../../styles/color";
+import { HL_GREEN } from "../../styles/color";
 
 const BinaryFilePanel = () => {
   const selectedAssemblyFile = useRecoilValue(selectedAssemblyFileState);
@@ -17,8 +17,10 @@ const BinaryFilePanel = () => {
   );
 
   useEffect(() => {
-    if (selectedFileContent)
-      setBinaryInstruction(assemble(selectedFileContent).split("\n"));
+    if (selectedFileContent) {
+      const { output, mappingDetail } = assemble(selectedFileContent);
+      setBinaryInstruction(output as string[]);
+    }
   }, [selectedFileContent]);
 
   return (
