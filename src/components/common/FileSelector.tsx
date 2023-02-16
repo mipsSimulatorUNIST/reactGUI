@@ -1,7 +1,10 @@
 import {FileSelectorDisplay, SelectedFile} from "../../styles/theme";
 import {useRef} from "react";
 import {useRecoilState} from "recoil";
-import {selectedAssemblyFileState} from "../../recoil/state";
+import {
+  assemblyExecutedLine,
+  selectedAssemblyFileState,
+} from "../../recoil/state";
 import {GREY373D, GREY58} from "../../styles/color";
 
 const FileSelector = () => {
@@ -19,9 +22,12 @@ const FileSelector = () => {
     selectedAssemblyFileState
   );
 
+  const [, setHighlightNumbers] = useRecoilState(assemblyExecutedLine);
+
   const handleSelect = (evt: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const targetId = evt.currentTarget.id;
     setSelectedAssemblyFile(targetId);
+    setHighlightNumbers([0]);
   };
 
   return (
