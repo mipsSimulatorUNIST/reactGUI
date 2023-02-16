@@ -1,17 +1,20 @@
 import {useRecoilState, useRecoilValue} from "recoil";
 import {
+  assemblyExecutedLine,
   selectedAssemblyFileState,
   selectedFileContentState,
 } from "../../recoil/state";
 import Panel from "../common/Panel";
 import {useEffect} from "react";
 import {HL_ORANGE} from "../../styles/color";
+import TopTab from "../common/TopTab";
 
 const AssembleFilePanel = () => {
   const selectedAssemblyFile = useRecoilValue(selectedAssemblyFileState);
   const [fileContent, setFileContent] = useRecoilState(
     selectedFileContentState
   );
+  const highlightNumbers = useRecoilValue(assemblyExecutedLine);
 
   useEffect(() => {
     const fetchFile = async (filePath: string) => {
@@ -26,13 +29,15 @@ const AssembleFilePanel = () => {
   }, [selectedAssemblyFile, setFileContent]);
 
   return (
-    <Panel
-      title={selectedAssemblyFile}
-      data={fileContent ? fileContent : []}
-      highlightNumbers={[1, 3, 5]}
-      highlightColor={HL_ORANGE}
-      width={"592px"}
-    />
+    <div style={{flexDirection: "row"}}>
+      <TopTab title={selectedAssemblyFile} isBinary={false} />
+      <Panel
+        data={fileContent ? fileContent : []}
+        highlightNumbers={highlightNumbers}
+        highlightColor={HL_ORANGE}
+        width={"592px"}
+      />
+    </div>
   );
 };
 
