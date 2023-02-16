@@ -1,15 +1,14 @@
-import {useRecoilValue} from "recoil";
+import { useRecoilValue } from "recoil";
 import {
   assemblyExecutedLine,
   selectedAssemblyFileState,
   selectedFileContentState,
 } from "../../recoil/state";
-import {useState} from "react";
-import {assemble} from "mips-simulator-js";
-import {useEffect} from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 import Panel from "../common/Panel";
-import {HL_GREEN} from "../../styles/color";
-import {ASSEMTESTDATA} from "../../assets/TestData";
+import { HL_GREEN } from "../../styles/color";
+import { ASSEMTESTDATA } from "../../assets/TestData";
 
 import TopTab from "../common/TopTab";
 
@@ -37,7 +36,7 @@ const BinaryFilePanel = () => {
   useEffect(() => {
     if (selectedFileContent) {
       //const { output: binaryLsit, mappingDetail } = assemble(selectedFileContent, true, true);
-      const {output: binaryLsit, mappingDetail} = ASSEMTESTDATA;
+      const { output: binaryLsit, mappingDetail } = ASSEMTESTDATA;
       setBinaryInstruction(binaryLsit);
       setMappingTable(mappingDetail);
     }
@@ -55,7 +54,7 @@ const BinaryFilePanel = () => {
   }, [assemblyHighlightNum, mappingTable]);
 
   return (
-    <div style={{flexDirection: "row"}}>
+    <div style={{ flexDirection: "row" }}>
       <TopTab
         title={selectedAssemblyFile.replace(".s", ".o")}
         isBinary={true}
