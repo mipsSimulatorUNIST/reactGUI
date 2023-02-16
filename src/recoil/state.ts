@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import {atom} from "recoil";
 
 export const selectedAssemblyFileState = atom<string>({
   key: "selectedAssemblyFileState",
@@ -8,4 +8,9 @@ export const selectedAssemblyFileState = atom<string>({
 export const selectedFileContentState = atom<string[] | null>({
   key: "selectedFileContentState",
   default: ["loading..."],
+});
+
+export const assemblyExecutedLine = atom<number[]>({
+  key: "assemblyExecutedLine",
+  default: [0],
 });
