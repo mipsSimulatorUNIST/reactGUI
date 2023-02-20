@@ -1,11 +1,12 @@
 import {
+  HoveringInfo,
   MainNumber,
   MainText,
   PanelBody,
   PanelDisplay,
   PanelMargin,
 } from "../../styles/panelStyle";
-import { BG, GREYCC } from "../../styles/color";
+import { BG, ROOTBG } from "../../styles/color";
 import { useRecoilState } from "recoil";
 import { assemblyExecutedLine } from "../../recoil/state";
 import { useState } from "react";
@@ -30,11 +31,7 @@ const Panel = ({
           return (
             <div
               key={index}
-              style={{
-                display: "flex",
-                textAlign: "left",
-                backgroundColor: hoveringNum === index ? GREYCC : BG,
-              }}
+              style={{ textAlign: "left" }}
               onClick={() => {
                 setHighlightNumbers([index]);
                 setHoveringNum(index);
@@ -42,13 +39,18 @@ const Panel = ({
               onMouseOver={() => setHoveringNum(index)}
               onMouseOut={() => setHoveringNum(-1)}
             >
-              <MainNumber>{index + 1}</MainNumber>
-              <MainText
-                isHighlighted={highlightNumbers.includes(index)}
-                color={highlightColor}
-              >
-                {ele}
-              </MainText>
+              {hoveringNum === index ? (
+                <HoveringInfo>Hovering</HoveringInfo>
+              ) : null}
+              <div style={{ display: "flex" }}>
+                <MainNumber>{index + 1}</MainNumber>
+                <MainText
+                  isHighlighted={highlightNumbers.includes(index)}
+                  color={highlightColor}
+                >
+                  {ele}
+                </MainText>
+              </div>
             </div>
           );
         })}

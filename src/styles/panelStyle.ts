@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import {BG, GREY42, GREY85, GREYD4} from "./color";
+import { BG, GREY42, GREY85, GREYD4 } from "./color";
 
-export const PanelDisplay = styled.div<{width: string}>`
+export const PanelDisplay = styled.div<{ width: string }>`
   width: ${(props) => props.width};
 `;
 
@@ -18,6 +18,7 @@ export const PanelTitle = styled.div`
 
 export const PanelBody = styled.div`
   background-color: ${BG};
+  display: block;
   height: 740px;
   overflow: scroll;
   &::-webkit-scrollbar {
@@ -58,4 +59,12 @@ export const MainText = styled.div<textHighlight>`
   white-space: pre-wrap;
   font-family: RobotoMonoTTFMedium;
   background-color: ${(props) => (props.isHighlighted ? props.color : BG)};
+`;
+
+export const HoveringInfo = styled.div`
+  color: ${GREYD4};
+  font-family: RobotoMonoTTFMedium;
+  padding-left: 73px;
+  font-size: 12px;
+  line-height: 24px;
 `;
