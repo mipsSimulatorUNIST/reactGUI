@@ -1,23 +1,23 @@
-import { useRecoilValue } from "recoil";
+import {useRecoilValue} from "recoil";
 import {
   assemblyExecutedLine,
   selectedAssemblyFileState,
   selectedFileContentState,
 } from "../../recoil/state";
-import { useState } from "react";
+import {useState} from "react";
 
-import { useEffect } from "react";
-import Panel from "../common/Panel";
-import { HL_GREEN } from "../../styles/color";
-import { ASSEMTESTDATA } from "../../assets/TestData";
+import {useEffect} from "react";
+import ClickablePanel from "../common/ClickablePanel";
+import {HL_GREEN} from "../../styles/color";
+import {ASSEMTESTDATA} from "../../assets/TestData";
 
 import TopTab from "../common/TopTab";
 
-interface IBinaryData {
+export interface IBinaryData {
   lineNumber: number;
   data: string;
 }
-interface IMapDetail {
+export interface IMapDetail {
   key: number;
   assembly: string;
   binary: IBinaryData[];
@@ -37,7 +37,7 @@ const BinaryFilePanel = () => {
   useEffect(() => {
     if (selectedFileContent) {
       //const { output: binaryList, mappingDetail } = assemble(selectedFileContent, true, true);
-      const { output: binaryList, mappingDetail } = ASSEMTESTDATA;
+      const {output: binaryList, mappingDetail} = ASSEMTESTDATA;
       setBinaryInstruction(binaryList);
       setMappingTable(mappingDetail);
     }
@@ -55,16 +55,17 @@ const BinaryFilePanel = () => {
   }, [assemblyHighlightNum, mappingTable]);
 
   return (
-    <div style={{ flexDirection: "row" }}>
+    <div style={{flexDirection: "row"}}>
       <TopTab
         title={selectedAssemblyFile.replace(".s", ".o")}
         isBinary={true}
       />
-      <Panel
+      <ClickablePanel
         data={binaryInstruction ? binaryInstruction : []}
         highlightNumbers={highlightNumbers}
         highlightColor={HL_GREEN}
         width={"592px"}
+        height={"740px"}
       />
     </div>
   );

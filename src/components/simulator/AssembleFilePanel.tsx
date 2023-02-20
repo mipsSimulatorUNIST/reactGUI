@@ -35,7 +35,7 @@ const AssembleFilePanel = () => {
         data={fileContent ? fileContent : []}
         highlightNumbers={highlightNumbers}
         highlightColor={HL_ORANGE}
-        width={"592px"}
+        width={"420px"}
         height={"740px"}
       />
     </div>

@@ -9,7 +9,7 @@ import {useRecoilState} from "recoil";
 import {assemblyExecutedLine} from "../../recoil/state";
 import {useState} from "react";
 
-const Panel = ({
+const ClickablePanel = ({
   data,
   highlightNumbers,
   highlightColor,
@@ -22,6 +22,8 @@ const Panel = ({
   width: string;
   height: string;
 }) => {
+  const [, setHighlightNumbers] = useRecoilState(assemblyExecutedLine);
+  const [hoveringNum, setHoveringNum] = useState(-1);
   return (
     <PanelDisplay width={width} height={height}>
       {data.map((ele, index) => {
@@ -31,13 +33,19 @@ const Panel = ({
             style={{
               display: "flex",
               textAlign: "left",
-              backgroundColor: BG,
+              backgroundColor: hoveringNum === index ? GREYCC : BG,
             }}
+            onClick={() => {
+              setHighlightNumbers([index]);
+              setHoveringNum(index);
+            }}
+            onMouseOver={() => setHoveringNum(index)}
+            onMouseOut={() => setHoveringNum(-1)}
           >
+            <MainNumber>{index + 1}</MainNumber>
             <MainText
               isHighlighted={highlightNumbers.includes(index)}
               color={highlightColor}
-              style={{paddingLeft: "40px"}}
             >
               {ele}
             </MainText>
@@ -49,4 +57,4 @@ const Panel = ({
   );
 };
 
-export default Panel;
+export default ClickablePanel;

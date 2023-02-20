@@ -1,8 +1,20 @@
 import styled from "styled-components";
 import {BG, GREY42, GREY85, GREYD4} from "./color";
 
-export const PanelDisplay = styled.div<{width: string}>`
+export const PanelDisplay = styled.div<{width: string; height: string}>`
   width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  background-color: ${BG};
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-corner {
+    display: None;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${GREY42};
+  }
 `;
 
 export const PanelTitle = styled.div`
@@ -16,20 +28,6 @@ export const PanelTitle = styled.div`
   justify-content: center;
 `;
 
-export const PanelBody = styled.div`
-  background-color: ${BG};
-  height: 740px;
-  overflow: scroll;
-  &::-webkit-scrollbar {
-    width: 10px;
-  }
-  &::-webkit-scrollbar-corner {
-    display: None;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: ${GREY42};
-  }
-`;
 export const PanelMargin = styled.div`
   height: 600px;
 `;

@@ -38,7 +38,7 @@ export const FileSelectorDisplay = styled.div`
 `;
 
 export const SimulatorBody = styled(Body)`
-  background-color: skyblue;
+  background-color: ${ROOTBG};
 `;
 
 export const CacheBody = styled(Body)`
