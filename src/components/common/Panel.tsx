@@ -6,22 +6,45 @@ import {
   PanelDisplay,
   PanelMargin,
 } from "../../styles/panelStyle";
-import { useRecoilState } from "recoil";
-import { assemblyExecutedLine } from "../../recoil/state";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  IMapDetail,
+  assemblyExecutedLine,
+  mappingTableOutput,
+} from "../../recoil/state";
 import { useState } from "react";
 
+const getHoverInfo = (
+  mappingTable: IMapDetail[] | null,
+  lineNums: number,
+  type: string
+): string => {
+  if (mappingTable) {
+    return type === "assemble"
+      ? mappingTable[lineNums]["binary"][0]["data"]
+      : mappingTable[lineNums]["assembly"];
+  } else {
+    return "";
+  }
+};
+
 const Panel = ({
+  highlightNumbers,
   data,
   highlightColor,
   width,
+  type,
 }: {
+  highlightNumbers: number[];
   data: string[];
   highlightColor: string;
   width: string;
+  type: string;
 }) => {
-  const [highlightNumbers, setHighlightNumbers] =
-    useRecoilState(assemblyExecutedLine);
+  const [, setHighlightNumbers] = useRecoilState(assemblyExecutedLine);
   const [hoveringNum, setHoveringNum] = useState(-1);
+  const mappingTable = useRecoilValue(mappingTableOutput);
+
   return (
     <PanelDisplay width={width}>
       <PanelBody>
@@ -38,7 +61,9 @@ const Panel = ({
               onMouseOut={() => setHoveringNum(-1)}
             >
               {hoveringNum === index ? (
-                <HoveringInfo>Hovering</HoveringInfo>
+                <HoveringInfo>
+                  {getHoverInfo(mappingTable, hoveringNum, type)}
+                </HoveringInfo>
               ) : null}
               <div style={{ display: "flex" }}>
                 <MainNumber>{index + 1}</MainNumber>

@@ -4,7 +4,7 @@ interface IBinaryData {
   lineNumber: number;
   data: string;
 }
-interface IMapDetail {
+export interface IMapDetail {
   key: number;
   assembly: string;
   binary: IBinaryData[];

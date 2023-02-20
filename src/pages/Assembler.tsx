@@ -15,9 +15,7 @@ import {
 const Assembler = () => {
   const selectedFileContent = useRecoilValue(selectedFileContentState);
   const assemblyHighlightNum = useRecoilValue(assemblyExecutedLine);
-  const [binaryInstructions, setBinaryInstructions] = useRecoilState(
-    binaryInstructionsOutput
-  );
+  const [, setBinaryInstructions] = useRecoilState(binaryInstructionsOutput);
   const [mappingTable, setMappingTable] = useRecoilState(mappingTableOutput);
   const [highlightNumbers, setHighlightNumbers] =
     useState(assemblyHighlightNum);
@@ -49,8 +47,8 @@ const Assembler = () => {
   return (
     <AssemblerBody>
       <FileSelector />
-      <AssembleFilePanel />
-      <BinaryFilePanel />
+      <AssembleFilePanel highlightNumbers={assemblyHighlightNum} />
+      <BinaryFilePanel highlightNumbers={highlightNumbers} />
     </AssemblerBody>
   );
 };
