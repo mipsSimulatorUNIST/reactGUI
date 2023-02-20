@@ -6,7 +6,6 @@ import {
   PanelDisplay,
   PanelMargin,
 } from "../../styles/panelStyle";
-import { BG, ROOTBG } from "../../styles/color";
 import { useRecoilState } from "recoil";
 import { assemblyExecutedLine } from "../../recoil/state";
 import { useState } from "react";
