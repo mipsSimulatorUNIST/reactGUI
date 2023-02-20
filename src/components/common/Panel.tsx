@@ -12,16 +12,15 @@ import { useState } from "react";
 
 const Panel = ({
   data,
-  highlightNumbers,
   highlightColor,
   width,
 }: {
   data: string[];
-  highlightNumbers: number[];
   highlightColor: string;
   width: string;
 }) => {
-  const [, setHighlightNumbers] = useRecoilState(assemblyExecutedLine);
+  const [highlightNumbers, setHighlightNumbers] =
+    useRecoilState(assemblyExecutedLine);
   const [hoveringNum, setHoveringNum] = useState(-1);
   return (
     <PanelDisplay width={width}>

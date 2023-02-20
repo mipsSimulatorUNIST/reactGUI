@@ -8,11 +8,7 @@ import { useEffect } from "react";
 import { HL_ORANGE } from "../../styles/color";
 import TopTab from "../common/TopTab";
 
-const AssembleFilePanel = ({
-  highlightNumbers,
-}: {
-  highlightNumbers: number[];
-}) => {
+const AssembleFilePanel = () => {
   const selectedAssemblyFile = useRecoilValue(selectedAssemblyFileState);
   const [fileContent, setFileContent] = useRecoilState(
     selectedFileContentState
@@ -35,7 +31,6 @@ const AssembleFilePanel = ({
       <TopTab title={selectedAssemblyFile} isBinary={false} />
       <Panel
         data={fileContent ? fileContent : []}
-        highlightNumbers={highlightNumbers}
         highlightColor={HL_ORANGE}
         width={"592px"}
       />

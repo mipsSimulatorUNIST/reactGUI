@@ -9,11 +9,7 @@ import { HL_GREEN } from "../../styles/color";
 
 import TopTab from "../common/TopTab";
 
-const BinaryFilePanel = ({
-  highlightNumbers,
-}: {
-  highlightNumbers: number[];
-}) => {
+const BinaryFilePanel = () => {
   const selectedAssemblyFile = useRecoilValue(selectedAssemblyFileState);
   const binaryInstructions = useRecoilValue(binaryInstructionsOutput);
 
@@ -25,7 +21,6 @@ const BinaryFilePanel = ({
       />
       <Panel
         data={binaryInstructions || []}
-        highlightNumbers={highlightNumbers}
         highlightColor={HL_GREEN}
         width={"592px"}
       />

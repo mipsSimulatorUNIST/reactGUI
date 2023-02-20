@@ -49,8 +49,8 @@ const Assembler = () => {
   return (
     <AssemblerBody>
       <FileSelector />
-      <AssembleFilePanel highlightNumbers={highlightNumbers} />
-      <BinaryFilePanel highlightNumbers={highlightNumbers} />
+      <AssembleFilePanel />
+      <BinaryFilePanel />
     </AssemblerBody>
   );
 };
