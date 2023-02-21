@@ -33,10 +33,11 @@ const convertLineNumAssemToBinary = (
   index: number
 ): number[] => {
   if (mappingTable) {
-    const returnValue = mappingTable.findIndex((element) =>
+    const assembleHighLightStates = mappingTable.filter((element) =>
       element["binary"].some((e) => e["lineNumber"] === index)
     );
-    return [returnValue];
+    const returnValues = assembleHighLightStates.map((e) => e.key);
+    return returnValues;
   } else {
     return [0];
   }

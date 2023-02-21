@@ -15,11 +15,12 @@ import {
 
 const Assembler = () => {
   const selectedFileContent = useRecoilValue(selectedFileContentState);
-  const assemblyHighlightNum = useRecoilValue(assemblyExecutedLine);
+  const assemblyHighlightNums = useRecoilValue(assemblyExecutedLine);
   const [, setBinaryInstructions] = useRecoilState(binaryInstructionsOutput);
   const [mappingTable, setMappingTable] = useRecoilState(mappingTableOutput);
-  const [highlightNumbers, setHighlightNumbers] =
-    useState(assemblyHighlightNum);
+  const [binaryHighlightNums, setBinaryHighlightNums] = useState(
+    assemblyHighlightNums
+  );
 
   useEffect(() => {
     if (selectedFileContent) {
@@ -35,21 +36,21 @@ const Assembler = () => {
   }, [selectedFileContent]);
 
   useEffect(() => {
-    if (mappingTable && assemblyHighlightNum[0]) {
-      const hightlightList = mappingTable[assemblyHighlightNum[0]][
+    if (mappingTable && assemblyHighlightNums[0] !== undefined) {
+      const hightlightList = mappingTable[assemblyHighlightNums[0]][
         "binary"
       ].map((value) => {
         return value["lineNumber"];
       });
-      setHighlightNumbers(hightlightList);
+      setBinaryHighlightNums(hightlightList);
     }
-  }, [assemblyHighlightNum, mappingTable]);
+  }, [assemblyHighlightNums, mappingTable]);
 
   return (
     <AssemblerBody>
       <FileSelector />
-      <AssembleFilePanel highlightNumbers={assemblyHighlightNum} />
-      <BinaryFilePanel highlightNumbers={highlightNumbers} />
+      <AssembleFilePanel highlightNumbers={assemblyHighlightNums} />
+      <BinaryFilePanel highlightNumbers={binaryHighlightNums} />
     </AssemblerBody>
   );
 };
