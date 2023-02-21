@@ -60,11 +60,11 @@ export const MainText = styled.div<textHighlight>`
   white-space: pre-wrap;
   font-family: RobotoMonoTTFMedium;
   background-color: ${(props) =>
-    props.isHovered ? GREY33 : props.isHighlighted ? props.color : BG};
+    props.isHighlighted ? props.color : props.isHovered ? GREY33 : BG};
 `;
 
 export const HoveringInfo = styled.div`
-  color: ${GREYD4};
+  color: ${GREY85};
   font-family: RobotoMonoTTFMedium;
   padding-left: 73px;
   font-size: 12px;

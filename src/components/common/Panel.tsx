@@ -69,8 +69,8 @@ const Panel = ({
             <div
               key={index}
               style={{
-                display: "flex",
                 textAlign: "left",
+                cursor: "pointer",
               }}
               onClick={() => {
                 type === "assembly"
@@ -83,14 +83,21 @@ const Panel = ({
               onMouseOver={() => setHoveringNum(index)}
               onMouseOut={() => setHoveringNum(-1)}
             >
-              <MainNumber>{index + 1}</MainNumber>
-              <MainText
-                isHighlighted={highlightNumbers.includes(index)}
-                isHovered={hoveringNum === index}
-                color={highlightColor}
-              >
-                {ele}
-              </MainText>
+              {highlightNumbers.includes(index) && (
+                <HoveringInfo>
+                  {getHoverInfo(mappingTable, index, type)}
+                </HoveringInfo>
+              )}
+              <div style={{ display: "flex" }}>
+                <MainNumber>{index + 1}</MainNumber>
+                <MainText
+                  isHighlighted={highlightNumbers.includes(index)}
+                  isHovered={hoveringNum === index}
+                  color={highlightColor}
+                >
+                  {ele}
+                </MainText>
+              </div>
             </div>
           );
         })}
