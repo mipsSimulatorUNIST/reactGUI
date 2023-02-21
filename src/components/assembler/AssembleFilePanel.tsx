@@ -1,6 +1,5 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
-  assemblyExecutedLine,
   selectedAssemblyFileState,
   selectedFileContentState,
 } from "../../recoil/state";
@@ -39,7 +38,7 @@ const AssembleFilePanel = ({
         data={fileContent ? fileContent : []}
         highlightColor={HL_ORANGE}
         width={"592px"}
-        type={"assemble"}
+        type={"assembly"}
       />
     </div>
   );

@@ -7090,7 +7090,7 @@
     "minipass" "^3.0.0"
     "yallist" "^4.0.0"
 
-"mips-simulator-js@latest":
+"mips-simulator-js@^2.1.4":
   "integrity" "sha512-psCklBAjltQ9t8Kc97beKrtDhd47SYb+1DWAtF3BgNCgtbMECB969kaHyxc6WJZmvQku+x/hMCm+nGsz0aPmUA=="
   "resolved" "https://registry.npmjs.org/mips-simulator-js/-/mips-simulator-js-2.1.4.tgz"
   "version" "2.1.4"

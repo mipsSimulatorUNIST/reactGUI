@@ -20,11 +20,25 @@ const getHoverInfo = (
   type: string
 ): string => {
   if (mappingTable) {
-    return type === "assemble"
+    return type === "assembly"
       ? mappingTable[lineNums]["binary"][0]["data"]
       : mappingTable[lineNums]["assembly"];
   } else {
     return "";
+  }
+};
+
+const convertLineNumAssemToBinary = (
+  mappingTable: IMapDetail[] | null,
+  index: number
+): number[] => {
+  if (mappingTable) {
+    const returnValue = mappingTable.findIndex((element) =>
+      element["binary"].some((e) => e["lineNumber"] === index)
+    );
+    return [returnValue];
+  } else {
+    return [0];
   }
 };
 
@@ -52,28 +66,28 @@ const Panel = ({
           return (
             <div
               key={index}
-              style={{ textAlign: "left" }}
+              style={{
+                display: "flex",
+                textAlign: "left",
+              }}
               onClick={() => {
-                setHighlightNumbers([index]);
+                type === "assembly"
+                  ? setHighlightNumbers([index])
+                  : setHighlightNumbers(
+                      convertLineNumAssemToBinary(mappingTable, index)
+                    );
                 setHoveringNum(index);
               }}
               onMouseOver={() => setHoveringNum(index)}
               onMouseOut={() => setHoveringNum(-1)}
             >
-              {hoveringNum === index ? (
-                <HoveringInfo>
-                  {getHoverInfo(mappingTable, hoveringNum, type)}
-                </HoveringInfo>
-              ) : null}
-              <div style={{ display: "flex" }}>
-                <MainNumber>{index + 1}</MainNumber>
-                <MainText
-                  isHighlighted={highlightNumbers.includes(index)}
-                  color={highlightColor}
-                >
-                  {ele}
-                </MainText>
-              </div>
+              <MainNumber>{index + 1}</MainNumber>
+              <MainText
+                isHighlighted={highlightNumbers.includes(index)}
+                color={highlightColor}
+              >
+                {ele}
+              </MainText>
             </div>
           );
         })}

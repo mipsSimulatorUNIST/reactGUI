@@ -1,6 +1,5 @@
 import { useRecoilValue } from "recoil";
 import {
-  assemblyExecutedLine,
   binaryInstructionsOutput,
   selectedAssemblyFileState,
 } from "../../recoil/state";
