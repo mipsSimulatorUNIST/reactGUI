@@ -24,12 +24,10 @@ const Assembler = () => {
 
   useEffect(() => {
     if (selectedFileContent) {
-      // const { output: binaryList, mappingDetail } = assemble(
-      //   selectedFileContent,
-      //   true,
-      //   true
-      // );
-      const { output: binaryList, mappingDetail } = ASSEMTESTDATA;
+      const { output: binaryList, mappingDetail } = assemble(
+        selectedFileContent,
+        true
+      );
       setBinaryInstructions(binaryList);
       setMappingTable(mappingDetail);
     }

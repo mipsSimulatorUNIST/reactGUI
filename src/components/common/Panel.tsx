@@ -1,3 +1,11 @@
+import { useState, useEffect } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  IMapDetail,
+  assemblyExecutedLine,
+  curHoverNumber,
+  mappingTableOutput,
+} from "../../recoil/state";
 import {
   HoveringInfo,
   MainNumber,
@@ -6,14 +14,6 @@ import {
   PanelDisplay,
   PanelMargin,
 } from "../../styles/panelStyle";
-import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  IMapDetail,
-  assemblyExecutedLine,
-  curHoverNumber,
-  mappingTableOutput,
-} from "../../recoil/state";
-import { useState } from "react";
 
 const getHoverInfo = (
   mappingTable: IMapDetail[] | null,
@@ -58,8 +58,20 @@ const Panel = ({
   type: string;
 }) => {
   const [, setHighlightNumbers] = useRecoilState(assemblyExecutedLine);
-  const [hoveringNum, setHoveringNum] = useRecoilState(curHoverNumber);
+  const [assemblyHoveringNum, setAssemblyHoveringNum] =
+    useRecoilState(curHoverNumber);
   const mappingTable = useRecoilValue(mappingTableOutput);
+  const [binaryHoveringNum, setBinaryHoveringNum] = useState<number[] | null>(
+    assemblyHoveringNum
+  );
+
+  useEffect(() => {
+    const binaryHoveringList = convertLineNumAssemToBinary(
+      mappingTable,
+      assemblyHoveringNum[0]
+    );
+    setBinaryHoveringNum(binaryHoveringList);
+  }, [assemblyHoveringNum]);
 
   return (
     <PanelDisplay width={width}>
@@ -73,15 +85,20 @@ const Panel = ({
                 cursor: "pointer",
               }}
               onClick={() => {
-                type === "assembly"
-                  ? setHighlightNumbers([index])
-                  : setHighlightNumbers(
-                      convertLineNumAssemToBinary(mappingTable, index)
-                    );
-                setHoveringNum(index);
+                setHighlightNumbers(() =>
+                  type === "assembly"
+                    ? [index]
+                    : convertLineNumAssemToBinary(mappingTable, index)
+                );
               }}
-              onMouseOver={() => setHoveringNum(index)}
-              onMouseOut={() => setHoveringNum(-1)}
+              onMouseOver={() => {
+                setAssemblyHoveringNum(() =>
+                  type === "assembly"
+                    ? [index]
+                    : convertLineNumAssemToBinary(mappingTable, index)
+                );
+              }}
+              onMouseOut={() => setAssemblyHoveringNum([-1])}
             >
               {highlightNumbers.includes(index) && (
                 <HoveringInfo>
@@ -92,7 +109,11 @@ const Panel = ({
                 <MainNumber>{index + 1}</MainNumber>
                 <MainText
                   isHighlighted={highlightNumbers.includes(index)}
-                  isHovered={hoveringNum === index}
+                  isHovered={
+                    type === "assembly"
+                      ? assemblyHoveringNum?.includes(index)
+                      : binaryHoveringNum?.includes(index)
+                  }
                   color={highlightColor}
                 >
                   {ele}

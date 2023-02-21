@@ -47,7 +47,7 @@ export const MainNumber = styled.div`
 
 interface textHighlight {
   isHighlighted: boolean;
-  isHovered: boolean;
+  isHovered: boolean | undefined;
   color: string;
 }
 

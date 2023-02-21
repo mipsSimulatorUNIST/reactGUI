@@ -16,7 +16,7 @@ export const selectedAssemblyFileState = atom<string>({
 
 export const selectedFileContentState = atom<string[] | null>({
   key: "selectedFileContentState",
-  default: ["loading..."],
+  default: null,
 });
 
 export const assemblyExecutedLine = atom<number[]>({
@@ -34,7 +34,7 @@ export const mappingTableOutput = atom<IMapDetail[] | null>({
   default: null,
 });
 
-export const curHoverNumber = atom<number | null>({
+export const curHoverNumber = atom<number[]>({
   key: "curHoverNumber",
-  default: null,
+  default: [0],
 });

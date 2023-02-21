@@ -7091,11 +7091,12 @@
     "yallist" "^4.0.0"
 
 "mips-simulator-js@^2.1.4":
-  "integrity" "sha512-psCklBAjltQ9t8Kc97beKrtDhd47SYb+1DWAtF3BgNCgtbMECB969kaHyxc6WJZmvQku+x/hMCm+nGsz0aPmUA=="
-  "resolved" "https://registry.npmjs.org/mips-simulator-js/-/mips-simulator-js-2.1.4.tgz"
-  "version" "2.1.4"
+  "integrity" "sha512-03eycNOFsA575dXGFlPuswdHvkZyOJVwYYh5aESHUr6lBlcQf3jVDRRw+4yHvWjbRBFMHJ1Vx4cu4Ht2jz2Smw=="
+  "resolved" "https://registry.npmjs.org/mips-simulator-js/-/mips-simulator-js-2.1.9.tgz"
+  "version" "2.1.9"
   dependencies:
     "ts-node" "^10.9.1"
+    "yocto-queue" "^1.0.0"
 
 "mkdirp@^1.0.3", "mkdirp@^1.0.4":
   "integrity" "sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw=="
@@ -10677,3 +10678,8 @@
   "integrity" "sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q=="
   "resolved" "https://registry.npmjs.org/yocto-queue/-/yocto-queue-0.1.0.tgz"
   "version" "0.1.0"
+
+"yocto-queue@^1.0.0":
+  "integrity" "sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g=="
+  "resolved" "https://registry.npmjs.org/yocto-queue/-/yocto-queue-1.0.0.tgz"
+  "version" "1.0.0"
