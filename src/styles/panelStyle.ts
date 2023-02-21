@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { BG, GREY42, GREY85, GREYD4 } from "./color";
+import { BG, GREY33, GREY42, GREY85, GREYD4 } from "./color";
 
 export const PanelDisplay = styled.div<{ width: string }>`
   width: ${(props) => props.width};
@@ -47,6 +47,7 @@ export const MainNumber = styled.div`
 
 interface textHighlight {
   isHighlighted: boolean;
+  isHovered: boolean;
   color: string;
 }
 
@@ -58,7 +59,8 @@ export const MainText = styled.div<textHighlight>`
   color: ${GREYD4};
   white-space: pre-wrap;
   font-family: RobotoMonoTTFMedium;
-  background-color: ${(props) => (props.isHighlighted ? props.color : BG)};
+  background-color: ${(props) =>
+    props.isHovered ? GREY33 : props.isHighlighted ? props.color : BG};
 `;
 
 export const HoveringInfo = styled.div`

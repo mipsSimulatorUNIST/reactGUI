@@ -33,3 +33,8 @@ export const mappingTableOutput = atom<IMapDetail[] | null>({
   key: "mappingTable",
   default: null,
 });
+
+export const curHoverNumber = atom<number | null>({
+  key: "curHoverNumber",
+  default: null,
+});

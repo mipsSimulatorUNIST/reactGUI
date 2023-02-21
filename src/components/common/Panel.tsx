@@ -10,6 +10,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import {
   IMapDetail,
   assemblyExecutedLine,
+  curHoverNumber,
   mappingTableOutput,
 } from "../../recoil/state";
 import { useState } from "react";
@@ -57,7 +58,7 @@ const Panel = ({
   type: string;
 }) => {
   const [, setHighlightNumbers] = useRecoilState(assemblyExecutedLine);
-  const [hoveringNum, setHoveringNum] = useState(-1);
+  const [hoveringNum, setHoveringNum] = useRecoilState(curHoverNumber);
   const mappingTable = useRecoilValue(mappingTableOutput);
 
   return (
@@ -85,6 +86,7 @@ const Panel = ({
               <MainNumber>{index + 1}</MainNumber>
               <MainText
                 isHighlighted={highlightNumbers.includes(index)}
+                isHovered={hoveringNum === index}
                 color={highlightColor}
               >
                 {ele}
