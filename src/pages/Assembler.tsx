@@ -10,27 +10,48 @@ import {
   binaryInstructionsOutput,
   mappingTableOutput,
   selectedFileContentState,
+  selectedAssemblyFileState,
 } from "../recoil/state";
 
 const Assembler = () => {
-  const selectedFileContent = useRecoilValue(selectedFileContentState);
   const assemblyHighlightNums = useRecoilValue(assemblyExecutedLine);
+  const selectedAssemblyFile = useRecoilValue(selectedAssemblyFileState);
+
+  const [fileContent, setFileContent] = useRecoilState(
+    selectedFileContentState
+  );
   const [, setBinaryInstructions] = useRecoilState(binaryInstructionsOutput);
   const [mappingTable, setMappingTable] = useRecoilState(mappingTableOutput);
+
   const [binaryHighlightNums, setBinaryHighlightNums] = useState(
     assemblyHighlightNums
   );
 
   useEffect(() => {
-    if (selectedFileContent) {
-      const { output: binaryList, mappingDetail } = assemble(
-        selectedFileContent,
-        true
-      );
-      setBinaryInstructions(binaryList);
-      setMappingTable(mappingDetail);
-    }
-  }, [selectedFileContent]);
+    const filePath = `sample_input/${selectedAssemblyFile}`;
+
+    const fetchFile = async (filePath: string) => {
+      await fetch(filePath)
+        .then((response) => response.text())
+        .then((text) => {
+          setFileContent(text.split("\n"));
+        });
+    };
+
+    const saveOutput = () => {
+      if (fileContent) {
+        const { output: binaryList, mappingDetail } = assemble(
+          fileContent,
+          true
+        );
+        setBinaryInstructions(binaryList);
+        setMappingTable(mappingDetail);
+      }
+    };
+
+    fetchFile(filePath);
+    saveOutput();
+  }, [selectedAssemblyFile, fileContent]);
 
   useEffect(() => {
     if (mappingTable && assemblyHighlightNums[0] !== undefined) {

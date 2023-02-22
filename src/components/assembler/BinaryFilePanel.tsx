@@ -4,8 +4,8 @@ import {
   selectedAssemblyFileState,
 } from "../../recoil/state";
 import Panel from "../common/Panel";
-import { HL_GREEN } from "../../styles/color";
 import TopTab from "../common/TopTab";
+import { HL_GREEN } from "../../styles/color";
 
 const BinaryFilePanel = ({
   highlightNumbers,
