@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
   IMapDetail,
@@ -15,20 +14,6 @@ import {
   PanelDisplay,
   PanelMargin,
 } from "../../styles/panelStyle";
-
-const getHoverInfo = (
-  mappingTable: IMapDetail[] | null,
-  lineNums: number,
-  type: string
-): string => {
-  if (mappingTable) {
-    return type === "assembly"
-      ? mappingTable[lineNums]["binary"][0]["data"]
-      : mappingTable[lineNums]["assembly"];
-  } else {
-    return "";
-  }
-};
 
 const convertLineNumBinaryToAssembly = (
   mappingTable: IMapDetail[] | null,
@@ -56,6 +41,29 @@ const convertLineNumAssemblyToBinary = (
     return returnValues;
   } else {
     return [0];
+  }
+};
+
+const getHoverInfo = (
+  mappingTable: IMapDetail[] | null,
+  assemblyLineNum: number,
+  type: string
+): string => {
+  const binaryLineNum = convertLineNumAssemblyToBinary(
+    mappingTable,
+    assemblyLineNum
+  );
+  if (mappingTable) {
+    let assemblyInstruction = "";
+
+    binaryLineNum.forEach(
+      (index) => (assemblyInstruction += mappingTable[index]["assembly"])
+    );
+    return type === "assembly"
+      ? mappingTable[assemblyLineNum]["binary"][0]["data"]
+      : assemblyInstruction;
+  } else {
+    return "";
   }
 };
 
