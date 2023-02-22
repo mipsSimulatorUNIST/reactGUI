@@ -5,6 +5,7 @@ import {
   selectedFileContentState,
 } from "../../recoil/state";
 import { useState } from "react";
+
 import { useEffect } from "react";
 import Panel from "../common/Panel";
 import { HL_GREEN } from "../../styles/color";
@@ -35,9 +36,9 @@ const BinaryFilePanel = () => {
 
   useEffect(() => {
     if (selectedFileContent) {
-      //const { output: binaryLsit, mappingDetail } = assemble(selectedFileContent, true, true);
-      const { output: binaryLsit, mappingDetail } = ASSEMTESTDATA;
-      setBinaryInstruction(binaryLsit);
+      //const { output: binaryList, mappingDetail } = assemble(selectedFileContent, true, true);
+      const { output: binaryList, mappingDetail } = ASSEMTESTDATA;
+      setBinaryInstruction(binaryList);
       setMappingTable(mappingDetail);
     }
   }, [selectedFileContent]);

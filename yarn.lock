@@ -7090,10 +7090,10 @@
     "minipass" "^3.0.0"
     "yallist" "^4.0.0"
 
-"mips-simulator-js@latest":
-  "integrity" "sha512-mtOb2Pui5wK/9VdHoVn1zYsPwcBkXcNMakJYNzq8ddiiUM/hUPVdsnx0Fxb4LwiUNap4OpgefsCQAIce8q/Tzg=="
-  "resolved" "https://registry.npmjs.org/mips-simulator-js/-/mips-simulator-js-2.0.2.tgz"
-  "version" "2.0.2"
+"mips-simulator-js@^2.1.4":
+  "integrity" "sha512-psCklBAjltQ9t8Kc97beKrtDhd47SYb+1DWAtF3BgNCgtbMECB969kaHyxc6WJZmvQku+x/hMCm+nGsz0aPmUA=="
+  "resolved" "https://registry.npmjs.org/mips-simulator-js/-/mips-simulator-js-2.1.4.tgz"
+  "version" "2.1.4"
   dependencies:
     "ts-node" "^10.9.1"
 
