@@ -27,30 +27,54 @@ const Assembler = () => {
     assemblyHighlightNums
   );
 
-  const fetchFile = useCallback(
-    async (filePath: string) => {
+  // const fetchFile = useCallback(
+  //   async (filePath: string) => {
+  //     console.log("fetchFile");
+  //     await fetch(filePath)
+  //       .then((response) => response.text())
+  //       .then((text) => {
+  //         setFileContent(text.split("\n"));
+  //       });
+  //   },
+  //   [setFileContent]
+  // );
+
+  // const saveOutput = useCallback(() => {
+  //   console.log("saveOutput");
+
+  //   if (fileContent) {
+  //     const { output: binaryList, mappingDetail } = assemble(fileContent, true);
+  //     setBinaryInstructions(binaryList);
+  //     setMappingTable(mappingDetail);
+  //   }
+  // }, [fileContent, setBinaryInstructions, setMappingTable]);
+
+  useEffect(() => {
+    const filePath = `sample_input/${selectedAssemblyFile}`;
+
+    const fetchFile = async (filePath: string) => {
+      console.log("fetchFile");
       await fetch(filePath)
         .then((response) => response.text())
         .then((text) => {
           setFileContent(text.split("\n"));
         });
-    },
-    [setFileContent]
-  );
+    };
 
-  const saveOutput = useCallback(() => {
-    if (fileContent) {
-      const { output: binaryList, mappingDetail } = assemble(fileContent, true);
-      setBinaryInstructions(binaryList);
-      setMappingTable(mappingDetail);
-    }
-  }, [fileContent, setBinaryInstructions, setMappingTable]);
-
-  useEffect(() => {
-    const filePath = `sample_input/${selectedAssemblyFile}`;
+    const saveOutput = () => {
+      console.log("saveOutput");
+      if (fileContent) {
+        const { output: binaryList, mappingDetail } = assemble(
+          fileContent,
+          true
+        );
+        setBinaryInstructions(binaryList);
+        setMappingTable(mappingDetail);
+      }
+    };
     fetchFile(filePath);
     saveOutput();
-  }, [selectedAssemblyFile, fileContent, fetchFile, saveOutput]);
+  }, [selectedAssemblyFile, fileContent]);
 
   useEffect(() => {
     if (mappingTable && assemblyHighlightNums[0] !== undefined) {
