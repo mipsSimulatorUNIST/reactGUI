@@ -15,6 +15,12 @@ import {
   PanelMargin,
 } from "../../styles/panelStyle";
 
+const isVaildHovered = (highlightNumbers: number[], index: number): boolean => {
+  return highlightNumbers.length === 1
+    ? highlightNumbers.includes(index)
+    : highlightNumbers[0] === index;
+};
+
 const convertLineNumBinaryToAssembly = (
   mappingTable: IMapDetail[] | null,
   index: number
@@ -55,10 +61,10 @@ const getHoverInfo = (
   );
   if (mappingTable) {
     let assemblyInstruction = "";
-
     binaryLineNum.forEach(
       (index) => (assemblyInstruction += mappingTable[index]["assembly"])
     );
+
     return type === "assembly"
       ? mappingTable[assemblyLineNum]["binary"][0]["data"]
       : assemblyInstruction;
@@ -87,7 +93,6 @@ const Panel = ({
     useRecoilState(assemblyHovering);
   const [binaryHoveringNum, setBinaryHoveringNum] =
     useRecoilState(binaryHovering);
-
   return (
     <PanelDisplay width={width}>
       <PanelBody>
@@ -124,7 +129,7 @@ const Panel = ({
                 setBinaryHoveringNum([-1]);
               }}
             >
-              {highlightNumbers.includes(index) && (
+              {isVaildHovered(highlightNumbers, index) && (
                 <HoveringInfo>
                   {getHoverInfo(mappingTable, index, type)}
                 </HoveringInfo>
