@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AssemblerBody } from "../styles/theme";
-import AssembleFilePanel from "../components/assembler/AssembleFilePanel";
-import BinaryFilePanel from "../components/assembler/BinaryFilePanel";
-import FileSelector from "../components/common/FileSelector";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { assemble } from "mips-simulator-js";
 import {
   assemblyExecutedLine,
   binaryInstructionsOutput,
@@ -12,6 +7,11 @@ import {
   selectedFileContentState,
   selectedAssemblyFileState,
 } from "../recoil/state";
+import AssembleFilePanel from "../components/assembler/AssembleFilePanel";
+import BinaryFilePanel from "../components/assembler/BinaryFilePanel";
+import FileSelector from "../components/common/FileSelector";
+import { AssemblerBody } from "../styles/theme";
+import { assemble } from "mips-simulator-js";
 
 const Assembler = () => {
   const assemblyHighlightNums = useRecoilValue(assemblyExecutedLine);
