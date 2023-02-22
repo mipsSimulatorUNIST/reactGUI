@@ -63,6 +63,12 @@ export const MainText = styled.div<textHighlight>`
     props.isHighlighted ? props.color : props.isHovered ? GREY33 : BG};
 `;
 
+export const Line = styled.div`
+  display: flex;
+  text-align: left;
+  cursor: pointer;
+`;
+
 export const HoveringInfo = styled.div`
   color: ${GREY85};
   font-family: RobotoMonoTTFMedium;

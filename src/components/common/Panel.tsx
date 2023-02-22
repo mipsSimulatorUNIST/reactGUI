@@ -8,12 +8,14 @@ import {
 } from "../../recoil/state";
 import {
   HoveringInfo,
+  Line,
   MainNumber,
   MainText,
   PanelBody,
   PanelDisplay,
   PanelMargin,
 } from "../../styles/panelStyle";
+import { useCallback } from "react";
 
 const isVaildHovered = (highlightNumbers: number[], index: number): boolean => {
   return highlightNumbers.length === 1
@@ -93,6 +95,50 @@ const Panel = ({
     useRecoilState(assemblyHovering);
   const [binaryHoveringNum, setBinaryHoveringNum] =
     useRecoilState(binaryHovering);
+
+  const onEvent = useCallback(
+    (index: number) => {
+      console.log(index);
+      return (
+        isVaildHovered(highlightNumbers, index) && (
+          <HoveringInfo>{getHoverInfo(mappingTable, index, type)}</HoveringInfo>
+        )
+      );
+    },
+    [highlightNumbers]
+  );
+
+  const handleHighlight = (
+    index: number,
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    setHighlightNumbers(() =>
+      type === "assembly"
+        ? [index]
+        : convertLineNumAssemblyToBinary(mappingTable, index)
+    );
+  };
+
+  const handleMouseOver = (
+    index: number,
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    if (type === "assembly") {
+      setAssemblyHoveringNum([index]);
+      setBinaryHoveringNum(convertLineNumBinaryToAssembly(mappingTable, index));
+    } else {
+      setAssemblyHoveringNum(
+        convertLineNumAssemblyToBinary(mappingTable, index)
+      );
+      setBinaryHoveringNum([index]);
+    }
+  };
+
+  const handleMouseOut = () => {
+    setAssemblyHoveringNum([-1]);
+    setBinaryHoveringNum([-1]);
+  };
+
   return (
     <PanelDisplay width={width}>
       <PanelBody>
@@ -100,41 +146,13 @@ const Panel = ({
           return (
             <div
               key={index}
-              style={{
-                textAlign: "left",
-                cursor: "pointer",
-              }}
-              onClick={() => {
-                setHighlightNumbers(() =>
-                  type === "assembly"
-                    ? [index]
-                    : convertLineNumAssemblyToBinary(mappingTable, index)
-                );
-              }}
-              onMouseOver={() => {
-                if (type === "assembly") {
-                  setAssemblyHoveringNum([index]);
-                  setBinaryHoveringNum(
-                    convertLineNumBinaryToAssembly(mappingTable, index)
-                  );
-                } else {
-                  setAssemblyHoveringNum(
-                    convertLineNumAssemblyToBinary(mappingTable, index)
-                  );
-                  setBinaryHoveringNum([index]);
-                }
-              }}
-              onMouseOut={() => {
-                setAssemblyHoveringNum([-1]);
-                setBinaryHoveringNum([-1]);
-              }}
+              onClick={(e) => handleHighlight(index, e)}
+              onMouseOver={(e) => handleMouseOver(index, e)}
+              onMouseOut={() => handleMouseOut()}
             >
-              {isVaildHovered(highlightNumbers, index) && (
-                <HoveringInfo>
-                  {getHoverInfo(mappingTable, index, type)}
-                </HoveringInfo>
-              )}
-              <div style={{ display: "flex" }}>
+              {onEvent(index)}
+
+              <Line>
                 <MainNumber>{index + 1}</MainNumber>
                 <MainText
                   isHighlighted={highlightNumbers.includes(index)}
@@ -147,7 +165,7 @@ const Panel = ({
                 >
                   {ele}
                 </MainText>
-              </div>
+              </Line>
             </div>
           );
         })}
