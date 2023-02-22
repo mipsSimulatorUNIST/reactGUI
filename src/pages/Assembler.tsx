@@ -51,7 +51,13 @@ const Assembler = () => {
 
     fetchFile(filePath);
     saveOutput();
-  }, [selectedAssemblyFile, fileContent]);
+  }, [
+    selectedAssemblyFile,
+    fileContent,
+    setFileContent,
+    setBinaryInstructions,
+    setMappingTable,
+  ]);
 
   useEffect(() => {
     if (mappingTable && assemblyHighlightNums[0] !== undefined) {
