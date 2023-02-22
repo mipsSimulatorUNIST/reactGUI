@@ -27,54 +27,33 @@ const Assembler = () => {
     assemblyHighlightNums
   );
 
-  // const fetchFile = useCallback(
-  //   async (filePath: string) => {
-  //     console.log("fetchFile");
-  //     await fetch(filePath)
-  //       .then((response) => response.text())
-  //       .then((text) => {
-  //         setFileContent(text.split("\n"));
-  //       });
-  //   },
-  //   [setFileContent]
-  // );
-
-  // const saveOutput = useCallback(() => {
-  //   console.log("saveOutput");
-
-  //   if (fileContent) {
-  //     const { output: binaryList, mappingDetail } = assemble(fileContent, true);
-  //     setBinaryInstructions(binaryList);
-  //     setMappingTable(mappingDetail);
-  //   }
-  // }, [fileContent, setBinaryInstructions, setMappingTable]);
-
-  useEffect(() => {
-    const filePath = `sample_input/${selectedAssemblyFile}`;
-
-    const fetchFile = async (filePath: string) => {
-      console.log("fetchFile");
+  const fetchFile = useCallback(
+    async (filePath: string) => {
       await fetch(filePath)
         .then((response) => response.text())
         .then((text) => {
           setFileContent(text.split("\n"));
         });
-    };
+    },
+    [setFileContent]
+  );
 
-    const saveOutput = () => {
-      console.log("saveOutput");
-      if (fileContent) {
-        const { output: binaryList, mappingDetail } = assemble(
-          fileContent,
-          true
-        );
-        setBinaryInstructions(binaryList);
-        setMappingTable(mappingDetail);
-      }
-    };
-    fetchFile(filePath);
+  const saveOutput = useCallback(() => {
+    if (fileContent) {
+      const { output: binaryList, mappingDetail } = assemble(fileContent, true);
+      setBinaryInstructions(binaryList);
+      setMappingTable(mappingDetail);
+    }
+  }, [fileContent, setBinaryInstructions, setMappingTable]);
+
+  useEffect(() => {
     saveOutput();
-  }, [selectedAssemblyFile, fileContent]);
+  }, [fileContent, saveOutput]);
+
+  useEffect(() => {
+    const filePath = `sample_input/${selectedAssemblyFile}`;
+    fetchFile(filePath);
+  }, [selectedAssemblyFile, fetchFile]);
 
   useEffect(() => {
     if (mappingTable && assemblyHighlightNums[0] !== undefined) {
