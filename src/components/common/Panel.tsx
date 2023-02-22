@@ -96,17 +96,13 @@ const Panel = ({
   const [binaryHoveringNum, setBinaryHoveringNum] =
     useRecoilState(binaryHovering);
 
-  const onEvent = useCallback(
-    (index: number) => {
-      console.log(index);
-      return (
-        isVaildHovered(highlightNumbers, index) && (
-          <HoveringInfo>{getHoverInfo(mappingTable, index, type)}</HoveringInfo>
-        )
-      );
-    },
-    [highlightNumbers]
-  );
+  const showHoveringInfo = (index: number) => {
+    return (
+      isVaildHovered(highlightNumbers, index) && (
+        <HoveringInfo>{getHoverInfo(mappingTable, index, type)}</HoveringInfo>
+      )
+    );
+  };
 
   const handleHighlight = (
     index: number,
@@ -150,8 +146,7 @@ const Panel = ({
               onMouseOver={(e) => handleMouseOver(index, e)}
               onMouseOut={() => handleMouseOut()}
             >
-              {onEvent(index)}
-
+              {showHoveringInfo(index)}
               <Line>
                 <MainNumber>{index + 1}</MainNumber>
                 <MainText
