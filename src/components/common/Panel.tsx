@@ -3,7 +3,8 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import {
   IMapDetail,
   assemblyExecutedLine,
-  curHoverNumber,
+  assemblyHovering,
+  binaryHovering,
   mappingTableOutput,
 } from "../../recoil/state";
 import {
@@ -29,7 +30,21 @@ const getHoverInfo = (
   }
 };
 
-const convertLineNumAssemToBinary = (
+const convertLineNumBinaryToAssembly = (
+  mappingTable: IMapDetail[] | null,
+  index: number
+): number[] => {
+  if (mappingTable) {
+    const hightlightList = mappingTable[index]["binary"].map((value) => {
+      return value["lineNumber"];
+    });
+    return hightlightList;
+  } else {
+    return [0];
+  }
+};
+
+const convertLineNumAssemblyToBinary = (
   mappingTable: IMapDetail[] | null,
   index: number
 ): number[] => {
@@ -58,20 +73,12 @@ const Panel = ({
   type: string;
 }) => {
   const [, setHighlightNumbers] = useRecoilState(assemblyExecutedLine);
-  const [assemblyHoveringNum, setAssemblyHoveringNum] =
-    useRecoilState(curHoverNumber);
   const mappingTable = useRecoilValue(mappingTableOutput);
-  const [binaryHoveringNum, setBinaryHoveringNum] = useState<number[] | null>(
-    assemblyHoveringNum
-  );
 
-  useEffect(() => {
-    const binaryHoveringList = convertLineNumAssemToBinary(
-      mappingTable,
-      assemblyHoveringNum[0]
-    );
-    setBinaryHoveringNum(binaryHoveringList);
-  }, [assemblyHoveringNum]);
+  const [assemblyHoveringNum, setAssemblyHoveringNum] =
+    useRecoilState(assemblyHovering);
+  const [binaryHoveringNum, setBinaryHoveringNum] =
+    useRecoilState(binaryHovering);
 
   return (
     <PanelDisplay width={width}>
@@ -88,17 +95,26 @@ const Panel = ({
                 setHighlightNumbers(() =>
                   type === "assembly"
                     ? [index]
-                    : convertLineNumAssemToBinary(mappingTable, index)
+                    : convertLineNumAssemblyToBinary(mappingTable, index)
                 );
               }}
               onMouseOver={() => {
-                setAssemblyHoveringNum(() =>
-                  type === "assembly"
-                    ? [index]
-                    : convertLineNumAssemToBinary(mappingTable, index)
-                );
+                if (type === "assembly") {
+                  setAssemblyHoveringNum([index]);
+                  setBinaryHoveringNum(
+                    convertLineNumBinaryToAssembly(mappingTable, index)
+                  );
+                } else {
+                  setAssemblyHoveringNum(
+                    convertLineNumAssemblyToBinary(mappingTable, index)
+                  );
+                  setBinaryHoveringNum([index]);
+                }
               }}
-              onMouseOut={() => setAssemblyHoveringNum([-1])}
+              onMouseOut={() => {
+                setAssemblyHoveringNum([-1]);
+                setBinaryHoveringNum([-1]);
+              }}
             >
               {highlightNumbers.includes(index) && (
                 <HoveringInfo>

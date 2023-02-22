@@ -19,11 +19,6 @@ export const selectedFileContentState = atom<string[] | null>({
   default: null,
 });
 
-export const assemblyExecutedLine = atom<number[]>({
-  key: "assemblyExecutedLine",
-  default: [0],
-});
-
 export const binaryInstructionsOutput = atom<string[] | null>({
   key: "binaryInstructions",
   default: null,
@@ -34,7 +29,17 @@ export const mappingTableOutput = atom<IMapDetail[] | null>({
   default: null,
 });
 
-export const curHoverNumber = atom<number[]>({
-  key: "curHoverNumber",
+export const assemblyExecutedLine = atom<number[]>({
+  key: "assemblyExecutedLine",
+  default: [0],
+});
+
+export const assemblyHovering = atom<number[]>({
+  key: "assemblyHovering",
+  default: [0],
+});
+
+export const binaryHovering = atom<number[]>({
+  key: "binaryHovering",
   default: [0],
 });

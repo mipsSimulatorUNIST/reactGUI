@@ -5,7 +5,6 @@ import BinaryFilePanel from "../components/assembler/BinaryFilePanel";
 import FileSelector from "../components/common/FileSelector";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { assemble } from "mips-simulator-js";
-import { ASSEMTESTDATA } from "../assets/TestData";
 import {
   assemblyExecutedLine,
   binaryInstructionsOutput,
