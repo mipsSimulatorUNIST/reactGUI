@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
   assemblyExecutedLine,
@@ -27,37 +27,30 @@ const Assembler = () => {
     assemblyHighlightNums
   );
 
-  useEffect(() => {
-    const filePath = `sample_input/${selectedAssemblyFile}`;
-
-    const fetchFile = async (filePath: string) => {
+  const fetchFile = useCallback(
+    async (filePath: string) => {
       await fetch(filePath)
         .then((response) => response.text())
         .then((text) => {
           setFileContent(text.split("\n"));
         });
-    };
+    },
+    [setFileContent]
+  );
 
-    const saveOutput = () => {
-      if (fileContent) {
-        const { output: binaryList, mappingDetail } = assemble(
-          fileContent,
-          true
-        );
-        setBinaryInstructions(binaryList);
-        setMappingTable(mappingDetail);
-      }
-    };
+  const saveOutput = useCallback(() => {
+    if (fileContent) {
+      const { output: binaryList, mappingDetail } = assemble(fileContent, true);
+      setBinaryInstructions(binaryList);
+      setMappingTable(mappingDetail);
+    }
+  }, [fileContent, setBinaryInstructions, setMappingTable]);
 
+  useEffect(() => {
+    const filePath = `sample_input/${selectedAssemblyFile}`;
     fetchFile(filePath);
     saveOutput();
-  }, [
-    selectedAssemblyFile,
-    fileContent,
-    setFileContent,
-    setBinaryInstructions,
-    setMappingTable,
-  ]);
+  }, [selectedAssemblyFile, fileContent, fetchFile, saveOutput]);
 
   useEffect(() => {
     if (mappingTable && assemblyHighlightNums[0] !== undefined) {

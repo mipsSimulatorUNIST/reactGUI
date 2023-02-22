@@ -30,27 +30,17 @@ const Simulator = () => {
 
   const handleCounterNext = () => {
     if (historyState) {
-      const historySize = historyState.length;
-      setPc((prev) => {
-        if (historySize <= prev + 1) {
-          return prev;
-        } else return prev + 1;
-      });
+      setPc((prev) => (historyState.length <= prev + 1 ? prev : prev + 1));
     }
   };
 
   const handleCounterPrevious = () => {
-    setPc((prev) => {
-      if (prev > 0) {
-        return prev - 1;
-      } else return prev;
-    });
+    setPc((prev) => (prev > 0 ? prev - 1 : prev));
   };
 
   useEffect(() => {
     fetchSimulator(fileContent);
     setPc(0);
-    return () => {};
   }, [fileContent]);
 
   useEffect(() => {
