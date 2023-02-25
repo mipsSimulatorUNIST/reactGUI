@@ -1,13 +1,5 @@
-import {
-  MainNumber,
-  MainText,
-  PanelDisplay,
-  PanelMargin,
-} from "../../styles/panelStyle";
-import {BG, GREYCC} from "../../styles/color";
-import {useRecoilState} from "recoil";
-import {assemblyExecutedLine} from "../../recoil/state";
-import {useState} from "react";
+import {MainText, PanelDisplay, PanelMargin} from "../../styles/panelStyle";
+import {BG} from "../../styles/color";
 
 const Panel = ({
   data,

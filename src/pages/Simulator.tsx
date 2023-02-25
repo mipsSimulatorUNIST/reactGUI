@@ -1,8 +1,6 @@
 import {simulator} from "mips-simulator-js";
 import AssembleFilePanel from "../components/simulator/AssembleFilePanel";
 import FileSelector from "../components/common/FileSelector";
-import Panel from "../components/common/Panel";
-import {HL_ORANGE} from "../styles/color";
 import {SimulatorBody} from "../styles/theme";
 import {useRecoilValue} from "recoil";
 import {selectedFileContentState} from "../recoil/state";
@@ -13,6 +11,10 @@ import Dashboard from "../components/simulator/Dashboard";
 import DataStackPanel from "../components/simulator/DataStackPanel";
 import {IMapDetail} from "../components/assembler/BinaryFilePanel";
 import {ASSEMTESTDATA} from "../assets/TestData";
+
+import nextIcon from "../assets/icons/next.png";
+import prevIcon from "../assets/icons/prev.png";
+import {diffList} from "../assets/functions";
 
 const Simulator = () => {
   const fileContent = useRecoilValue(selectedFileContentState);
@@ -26,39 +28,47 @@ const Simulator = () => {
     null
   );
   const [mappingTable, setMappingTable] = useState<IMapDetail[] | null>(null);
-  const [pc, setPc] = useState(0);
-  const [register, setRegister] = useState<string[]>([]);
-  const [dataSection, setDataSection] = useState<object>([]);
-  const [stackSection, setStackSection] = useState<object>([]);
+  const [pc, setPc] = useState<number>(0);
+  const [curState, setCurState] = useState<simulatorOutputType>();
+  const [prevState, setPrevState] = useState<simulatorOutputType>();
+  const [space, setSpace] = useState<number>(1);
+
+  const onChange = (e: any) => {
+    setSpace(e.target.value);
+  };
 
   const fetchSimulator = async (fileContent: string[] | null) => {
     if (fileContent) {
       const {output: binaryList, mappingDetail} = ASSEMTESTDATA;
       setBinaryInstruction(binaryList);
       setMappingTable(mappingDetail);
-      console.log(binaryList);
-      console.log(mappingDetail);
       const {result, history} = await simulator(fileContent, 1000, true);
       setResultState(result);
       setHistoryState(history);
+      if (history) {
+        setCurState(history[0]);
+        setPrevState(history[0]);
+      }
     }
   };
 
   const handleCounterNext = () => {
     if (historyState) {
       const historySize = historyState.length;
-      setPc((prev) => {
-        if (historySize <= prev + 1) {
+      setPc((prev: number) => {
+        if (historySize <= prev * 1 + space * 1) {
           return prev;
-        } else return prev + 1;
+        } else {
+          return prev * 1 + space * 1;
+        }
       });
     }
   };
 
   const handleCounterPrevious = () => {
     setPc((prev) => {
-      if (prev > 0) {
-        return prev - 1;
+      if (prev - space >= 0) {
+        return prev - space;
       } else return prev;
     });
   };
@@ -71,42 +81,96 @@ const Simulator = () => {
 
   useEffect(() => {
     if (historyState) {
-      const entries = Object.entries(historyState[pc].registers);
-      const newRegister = [];
-      for (let i = 0; i < entries.length; i++) {
-        const v = `R${i}: ` + entries[i][1];
-        newRegister.push(v);
-      }
-      setRegister(newRegister);
-      setDataSection(historyState[pc].dataSection);
-      setStackSection(historyState[pc].stackSection);
+      setCurState((prev) => {
+        setPrevState(prev);
+        return historyState[pc];
+      });
     }
-  }, [resultState, historyState, pc]);
+  }, [historyState, pc]);
 
   return (
     <SimulatorBody>
       <FileSelector />
       <AssembleFilePanel />
-      <RegisterPanel register={register} />
+      <RegisterPanel
+        register={curState ? curState.registers : []}
+        prev={prevState ? prevState.registers : []}
+      />
       <div
         style={{
-          backgroundColor: "grey",
+          backgroundColor: "252B32",
           display: "flex",
           flexDirection: "row",
-          width: "100px",
-          height: "100px",
+          justifyContent: "space-between",
           position: "absolute",
+          height: "40px",
           left: "100px",
           bottom: "100px",
         }}
       >
-        <div>{pc}</div>
-        <button onClick={handleCounterPrevious}>previous</button>
-        <button onClick={handleCounterNext}>next</button>
+        <div style={{color: "white"}}>{pc}</div>
+        <input
+          name="cycle space"
+          placeholder="cycle 간격"
+          onChange={onChange}
+          value={space}
+        />
+        <div
+          onClick={handleCounterPrevious}
+          style={{
+            backgroundColor: "#252B32",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <img
+            src={prevIcon}
+            alt={"prev"}
+            style={{
+              width: "20px",
+              height: "20px",
+              marginLeft: "10px",
+              marginRight: "10px",
+            }}
+          />
+        </div>
+        <div
+          onClick={handleCounterNext}
+          style={{
+            backgroundColor: "#252B32",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <img
+            src={nextIcon}
+            alt={"next"}
+            style={{
+              width: "20px",
+              height: "20px",
+              marginLeft: "10px",
+              marginRight: "10px",
+            }}
+          />
+        </div>
       </div>
       <div>
-        <Dashboard PC={historyState ? historyState[pc].PC : ""} />
-        <DataStackPanel data={dataSection} stack={stackSection} />
+        <Dashboard
+          curState={
+            curState
+              ? curState
+              : {PC: "", registers: {}, dataSection: {}, stackSection: {}}
+          }
+          prevState={
+            prevState
+              ? prevState
+              : {PC: "", registers: {}, dataSection: {}, stackSection: {}}
+          }
+        />
+        <DataStackPanel
+          data={curState ? curState.dataSection : []}
+          stack={curState ? curState.stackSection : []}
+        />
       </div>
     </SimulatorBody>
   );
