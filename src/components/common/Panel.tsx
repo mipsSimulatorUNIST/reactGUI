@@ -15,7 +15,6 @@ import {
   PanelDisplay,
   PanelMargin,
 } from "../../styles/panelStyle";
-import { useCallback } from "react";
 
 const isVaildHovered = (highlightNumbers: number[], index: number): boolean => {
   return highlightNumbers.length === 1
