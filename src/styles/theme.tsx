@@ -2,7 +2,12 @@ import {Link} from "react-router-dom";
 import styled from "styled-components";
 import {ROOTBG, GREYD4, GREY33, GREYCC, HL_BLUE, BG} from "./color";
 
-export const BackGround = styled.div`
+export const CenterAlign = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+export const BackGround = styled(CenterAlign)`
   background-color: ${ROOTBG};
   border: 2px solid ${BG};
   display: flex;
@@ -72,4 +77,8 @@ export const SelectedFile = styled.div<selected>`
   border-color: #007fd4;
   border-width: ${(props) =>
     props.selectedAssemblyFile === props.element ? "1px" : "0px"};
+`;
+
+export const NoneDragImg = styled.img`
+  -webkit-user-drag: none;
 `;

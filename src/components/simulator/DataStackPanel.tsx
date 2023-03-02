@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
-import {BG, GREY42, HL_GREEN} from "../../styles/color";
+import {BG, GREY42} from "../../styles/color";
 import {MainText, PanelDisplay, PanelMargin} from "../../styles/panelStyle";
-import Panel from "../common/Panel";
 import TopTab from "../common/TopTab";
 
 const DataStackPanel = ({data, stack}: {data: object; stack: object}) => {
@@ -14,13 +13,15 @@ const DataStackPanel = ({data, stack}: {data: object; stack: object}) => {
     );
     setDataList(newDataList);
   }, [setDataList, data]);
+
   useEffect(() => {
-    const newDataList: string[] = [];
-    Object.entries(data).map(([key, value]) =>
-      newDataList.push(key + ": " + value)
+    const newStackList: string[] = [];
+    Object.entries(stack).map(([key, value]) =>
+      newStackList.push(key + ": " + value)
     );
-    setDataList(newDataList);
-  }, [setDataList, data]);
+    setStackList(newStackList);
+  }, [setStackList, stack]);
+
   return (
     <div style={{flexDirection: "row"}}>
       <TopTab title={"Data & Stack"} isBinary={false} />

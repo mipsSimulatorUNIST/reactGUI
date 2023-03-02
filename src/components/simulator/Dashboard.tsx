@@ -1,7 +1,43 @@
-import {GREY42, HL_GREEN, TEXT_GREEN} from "../../styles/color";
+import {GREY42, GREYD4, TEXT_GREEN} from "../../styles/color";
 import {MainText, PanelDisplay, PanelMargin} from "../../styles/panelStyle";
 import TopTab from "../common/TopTab";
 import {simulatorOutputType} from "mips-simulator-js/dist/src/utils/functions";
+export const objectDiff = (curState: any, prevState: any) => {
+  interface changeForm {
+    address: string;
+    cur: string | null;
+    prev: string | null;
+  }
+  const displayList: changeForm[] = [];
+  const addrList = Object.keys(prevState);
+  const newAddrList = Object.keys(curState);
+  for (let addr of addrList) {
+    if (newAddrList.includes(addr)) {
+      if (curState[addr] !== prevState[addr]) {
+        displayList.push({
+          address: addr,
+          cur: curState[addr],
+          prev: prevState[addr],
+        });
+      }
+    } else {
+      displayList.push({
+        address: addr,
+        cur: null,
+        prev: prevState[addr],
+      });
+    }
+  }
+  const a = newAddrList.filter((element) => !addrList.includes(element));
+  for (let addr of a) {
+    displayList.push({
+      address: addr,
+      cur: curState[addr],
+      prev: null,
+    });
+  }
+  return displayList;
+};
 const Dashboard = ({
   curState,
   prevState,
@@ -9,25 +45,6 @@ const Dashboard = ({
   curState: simulatorOutputType;
   prevState: simulatorOutputType;
 }) => {
-  const regChange = (curReg: object, prevReg: object) => {
-    interface regChangeForm {
-      reg: string;
-      cur: string;
-      prev: string;
-    }
-    const regList: regChangeForm[] = [];
-    Object.entries(curReg).map((reg, index) => {
-      if (reg[1] !== Object.entries(prevReg)[index][1]) {
-        regList.push({
-          reg: reg[0],
-          cur: reg[1],
-          prev: Object.entries(prevReg)[index][1],
-        });
-      }
-    });
-    return regList;
-  };
-
   return (
     <div
       style={{
@@ -53,6 +70,7 @@ const Dashboard = ({
           style={{color: TEXT_GREEN, marginBottom: "20px"}}
         >
           and $17, $17, $0
+          {/* {curState.instruction.assembly} */}
         </MainText>
         <MainText isHighlighted={false} color={""}>
           실행된 바이너리 코드
@@ -62,7 +80,8 @@ const Dashboard = ({
           color={""}
           style={{color: TEXT_GREEN, marginBottom: "20px"}}
         >
-          and $17, $17, $0
+          00000010001000001000100000100100
+          {/* {curState.instruction.binary} */}
         </MainText>
         <MainText isHighlighted={false} color={""}>
           변경된 레지스터
@@ -73,13 +92,81 @@ const Dashboard = ({
           style={{marginBottom: "20px"}}
         >
           {Object.entries(
-            regChange(curState.registers, prevState.registers)
+            objectDiff(curState.registers, prevState.registers)
           ).map((item, index) => {
             return (
               <div key={index} style={{display: "flex", flexDirection: "row"}}>
-                <div>{item[1].reg + ": "}</div>
+                <div>{item[1].address + ": "}</div>
                 <div>{item[1].prev + " -> "} </div>
                 <div style={{color: TEXT_GREEN}}>{item[1].cur}</div>
+              </div>
+            );
+          })}
+        </MainText>
+        <MainText isHighlighted={false} color={""}>
+          변경된 데이터
+        </MainText>
+        <MainText
+          isHighlighted={false}
+          color={""}
+          style={{marginBottom: "20px"}}
+        >
+          {Object.entries(
+            objectDiff(curState.dataSection, prevState.dataSection)
+          ).map((item, index) => {
+            return (
+              <div key={index} style={{display: "flex", flexDirection: "row"}}>
+                <div>{item[1].address + ": "}</div>
+                {item[1].prev ? (
+                  <div>{item[1].prev} </div>
+                ) : (
+                  <div style={{color: GREYD4, opacity: 0.5}}>(--empty--) </div>
+                )}
+                -{">"}
+                <div style={{color: TEXT_GREEN}}>
+                  {item[1].cur ? (
+                    <div> {item[1].cur}</div>
+                  ) : (
+                    <div style={{color: GREYD4, opacity: 0.5}}>
+                      {" "}
+                      (--empty--)
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </MainText>
+        <MainText isHighlighted={false} color={""}>
+          변경된 스택
+        </MainText>
+        <MainText
+          isHighlighted={false}
+          color={""}
+          style={{marginBottom: "20px"}}
+        >
+          {Object.entries(
+            objectDiff(curState.stackSection, prevState.stackSection)
+          ).map((item, index) => {
+            return (
+              <div key={index} style={{display: "flex", flexDirection: "row"}}>
+                <div>{item[1].address + ": "}</div>
+                {item[1].prev ? (
+                  <div>{item[1].prev} </div>
+                ) : (
+                  <div style={{color: GREYD4, opacity: 0.5}}>(--empty--) </div>
+                )}
+                -{">"}
+                <div style={{color: TEXT_GREEN}}>
+                  {item[1].cur ? (
+                    <div> {item[1].cur}</div>
+                  ) : (
+                    <div style={{color: GREYD4, opacity: 0.5}}>
+                      {" "}
+                      (--empty--)
+                    </div>
+                  )}
+                </div>
               </div>
             );
           })}
