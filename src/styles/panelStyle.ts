@@ -1,8 +1,20 @@
 import styled from "styled-components";
 import { BG, GREY33, GREY42, GREY85, GREYD4 } from "./color";
 
-export const PanelDisplay = styled.div<{ width: string }>`
+export const PanelDisplay = styled.div<{width: string; height: string}>`
   width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  background-color: ${BG};
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-corner {
+    display: None;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${GREY42};
+  }
 `;
 
 export const PanelTitle = styled.div`
@@ -50,8 +62,7 @@ interface textHighlight {
   isHovered: boolean | undefined;
   color: string;
 }
-
-export const MainText = styled.div<textHighlight>`
+export const MainText = styled.div`
   flex: 1;
   padding-left: 18px;
   font-size: 16px;
@@ -59,8 +70,6 @@ export const MainText = styled.div<textHighlight>`
   color: ${GREYD4};
   white-space: pre-wrap;
   font-family: RobotoMonoTTFMedium;
-  background-color: ${(props) =>
-    props.isHighlighted ? props.color : props.isHovered ? GREY33 : BG};
 `;
 
 export const Line = styled.div`
@@ -75,4 +84,9 @@ export const HoveringInfo = styled.div`
   padding-left: 73px;
   font-size: 12px;
   line-height: 24px;
+`;
+
+export const HighlightedText = styled(MainText)<textHighlight>`
+  background-color: ${(props) =>
+    props.isHighlighted ? props.color : props.isHovered ? GREY33 : BG};
 `;

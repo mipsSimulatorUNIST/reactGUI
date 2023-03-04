@@ -1,14 +1,21 @@
-import { simulator } from "mips-simulator-js";
-import AssembleFilePanel from "../components/assembler/AssembleFilePanel";
-import FileSelector from "../components/common/FileSelector";
-import Panel from "../components/common/Panel";
-import { HL_ORANGE } from "../styles/color";
-import { SimulatorBody } from "../styles/theme";
-import { useRecoilValue } from "recoil";
-import { selectedFileContentState } from "../recoil/state";
-import { useEffect, useState } from "react";
-import { simulatorOutputType } from "mips-simulator-js/dist/src/utils/functions";
+import {assemble, simulator} from "mips-simulator-js";
+import {SimulatorBody} from "../styles/theme";
+import {useRecoilValue} from "recoil";
+import {IMapDetail, selectedFileContentState} from "../recoil/state";
+import {useEffect, useState} from "react";
+import {simulatorOutputType} from "mips-simulator-js/dist/src/utils/functions";
 
+import AssembleFilePanel from "../components/simulator/AssembleFilePanel";
+import FileSelector from "../components/common/FileSelector";
+import RegisterPanel from "../components/simulator/RegisterPanel";
+import Dashboard from "../components/simulator/Dashboard";
+import DataStackPanel from "../components/simulator/DataStackPanel";
+import ControlBar from "../components/common/ControlBar";
+
+export interface instructionSet {
+  assembly: string;
+  binary: string;
+}
 const Simulator = () => {
   const fileContent = useRecoilValue(selectedFileContentState);
   const [resultState, setResultState] = useState<simulatorOutputType | null>(
@@ -17,25 +24,66 @@ const Simulator = () => {
   const [historyState, setHistoryState] = useState<
     simulatorOutputType[] | null
   >(null);
-  const [pc, setPc] = useState(0);
-  const [register, setRegister] = useState<string[]>([]);
+  const [mappingTable, setMappingTable] = useState<IMapDetail[] | null>(null);
+  const [pc, setPc] = useState<number>(0);
+  const [curState, setCurState] = useState<simulatorOutputType>();
+  const [prevState, setPrevState] = useState<simulatorOutputType>();
+  const [space, setSpace] = useState<number>(1);
+  const [instr, setInstr] = useState<instructionSet>();
+
+  const getInstr = (
+    pc: number,
+    mappingTable: IMapDetail[] | null
+  ): instructionSet => {
+    const lineNumber = (pc - 0x00400000) / 4 + 2;
+    if (mappingTable) {
+      const filteredTable = mappingTable.filter(
+        (instr) => instr.binary.length > 0
+      );
+      for (let instr of filteredTable) {
+        for (let binary of instr.binary) {
+          if (binary.lineNumber === lineNumber) {
+            return {
+              assembly: instr.assembly.trim(),
+              binary: binary.data,
+            };
+          }
+        }
+      }
+    }
+    return {
+      assembly: "",
+      binary: "",
+    };
+  };
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSpace(parseInt(e.target.value));
+  };
 
   const fetchSimulator = async (fileContent: string[] | null) => {
     if (fileContent) {
-      const { result, history } = await simulator(fileContent, 1000, true);
+      const { output: binaryList, mappingDetail } = assemble(fileContent, true);
+      setMappingTable(mappingDetail);
+      console.log("mapping Detail : ", mappingDetail)
+      const {result, history} = await simulator(fileContent, 1000, true);
       setResultState(result);
       setHistoryState(history);
+      if (history) {
+        setCurState(history[0]);
+        setPrevState(history[0]);
+      }
     }
   };
 
   const handleCounterNext = () => {
     if (historyState) {
-      setPc((prev) => (historyState.length <= prev + 1 ? prev : prev + 1));
+      setPc((prev) => (historyState.length <= prev + space ? prev : prev + space));
     }
   };
 
   const handleCounterPrevious = () => {
-    setPc((prev) => (prev > 0 ? prev - 1 : prev));
+    setPc((prev) => (prev - space>= 0 ? prev - space : prev));
   };
 
   useEffect(() => {
@@ -45,30 +93,56 @@ const Simulator = () => {
 
   useEffect(() => {
     if (historyState) {
-      const entries = Object.entries(historyState[pc].registers);
-      const newRegister = [];
-      for (let i = 0; i < entries.length; i++) {
-        const v = entries[i][1];
-        newRegister.push(v);
-      }
-      setRegister(newRegister);
+      setCurState((prev) => {
+        setPrevState(prev);
+        return historyState[pc];
+      });
+      const instrObj = getInstr(parseInt(historyState[pc].PC), mappingTable);
+      setInstr(instrObj);
     }
-  }, [resultState, historyState, pc]);
+  }, [historyState, pc, mappingTable]);
 
   return (
     <SimulatorBody>
       <FileSelector />
-      <div>{pc}</div>
-      <button onClick={handleCounterPrevious}>previous</button>
-      <button onClick={handleCounterNext}>next</button>
-      <AssembleFilePanel highlightNumbers={[1]} />
-      <Panel
-        data={register || []}
-        highlightNumbers={[1, 3, 5]}
-        highlightColor={HL_ORANGE}
-        width={"592px"}
-        type={"simulator"}
+      <AssembleFilePanel />
+      <RegisterPanel
+        register={curState ? curState.registers : []}
+        prev={prevState ? prevState.registers : []}
       />
+      <ControlBar
+        cycle={pc}
+        onChange={onChange}
+        handleCounterNext={handleCounterNext}
+        handleCounterPrevious={handleCounterPrevious}
+        space={space}
+      />
+      <div>
+        <Dashboard
+          curState={
+            curState
+              ? curState
+              : {PC: "", registers: {}, dataSection: {}, stackSection: {}}
+          }
+          prevState={
+            prevState
+              ? prevState
+              : {PC: "", registers: {}, dataSection: {}, stackSection: {}}
+          }
+          instrState={
+            instr
+              ? instr
+              : {
+                  assembly: "",
+                  binary: "",
+                }
+          }
+        />
+        <DataStackPanel
+          data={curState ? curState.dataSection : []}
+          stack={curState ? curState.stackSection : []}
+        />
+      </div>
     </SimulatorBody>
   );
 };

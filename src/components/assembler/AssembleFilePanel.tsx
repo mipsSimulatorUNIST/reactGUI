@@ -3,7 +3,7 @@ import {
   selectedAssemblyFileState,
   selectedFileContentState,
 } from "../../recoil/state";
-import Panel from "../common/Panel";
+import ClickablePanel from "../common/ClickablePanel";
 import TopTab from "../common/TopTab";
 import { HL_ORANGE } from "../../styles/color";
 
@@ -18,11 +18,12 @@ const AssembleFilePanel = ({
   return (
     <div style={{ flexDirection: "row" }}>
       <TopTab title={selectedAssemblyFile} isBinary={false} />
-      <Panel
+      <ClickablePanel
         highlightNumbers={highlightNumbers}
         data={fileContent || []}
         highlightColor={HL_ORANGE}
         width={"592px"}
+        height={"740px"}
         type={"assembly"}
       />
     </div>
