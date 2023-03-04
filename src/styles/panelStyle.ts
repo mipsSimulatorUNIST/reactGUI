@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import { BG, GREY33, GREY42, GREY85, GREYD4 } from "./color";
+import {BG, GREY33, GREY42, GREY85, GREYD4} from "./color";
 
 export const PanelDisplay = styled.div<{width: string; height: string}>`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
+  text-align: left;
   background-color: ${BG};
   overflow: scroll;
   &::-webkit-scrollbar {

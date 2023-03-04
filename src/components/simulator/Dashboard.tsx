@@ -58,11 +58,7 @@ const Dashboard = ({
       }}
     >
       <TopTab title={"Dashboard"} isBinary={false} />
-      <PanelDisplay
-        width={"442px"}
-        height={"367px"}
-        style={{textAlign: "left"}}
-      >
+      <PanelDisplay width={"442px"} height={"367px"}>
         <MainText>PC: {curState ? curState.PC : 0}</MainText>
         <MainText>실행된 어셈블리 코드</MainText>
         <MainText style={{color: TEXT_GREEN, marginBottom: "20px"}}>
