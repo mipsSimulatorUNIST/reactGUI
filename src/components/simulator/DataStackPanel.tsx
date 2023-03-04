@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {BG, GREY42} from "../../styles/color";
+import {GREY42} from "../../styles/color";
 import {MainText, PanelDisplay, PanelMargin} from "../../styles/panelStyle";
 import TopTab from "../common/TopTab";
 
@@ -32,41 +32,15 @@ const DataStackPanel = ({data, stack}: {data: object; stack: object}) => {
         }}
       >
         <PanelDisplay width={"442px"} height={"330px"}>
-          <MainText style={{textAlign: "left", marginBottom: "10px"}}>
-            [Data]
-          </MainText>
+          <MainText style={{marginBottom: "10px"}}>[Data]</MainText>
           {dataList.map((ele, index) => {
-            return (
-              <div
-                key={index}
-                style={{
-                  display: "flex",
-                  textAlign: "left",
-                  backgroundColor: BG,
-                }}
-              >
-                <MainText>{ele}</MainText>
-              </div>
-            );
+            return <MainText key={index}>{ele}</MainText>;
           })}
-          <MainText
-            style={{textAlign: "left", marginTop: "20px", marginBottom: "10px"}}
-          >
+          <MainText style={{marginTop: "20px", marginBottom: "10px"}}>
             [Stack]
           </MainText>
           {stackList.map((ele, index) => {
-            return (
-              <div
-                key={index}
-                style={{
-                  display: "flex",
-                  textAlign: "left",
-                  backgroundColor: BG,
-                }}
-              >
-                <MainText>{ele}</MainText>
-              </div>
-            );
+            return <MainText key={index}>{ele}</MainText>;
           })}
           <PanelMargin />
         </PanelDisplay>

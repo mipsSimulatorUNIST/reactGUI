@@ -38,7 +38,7 @@ const Simulator = () => {
     const lineNumber = (pc - 0x00400000) / 4 + 2;
     if (mappingTable) {
       const filteredTable = mappingTable.filter(
-        (instr) => instr.binary.length > 0
+        (instr) => instr.binary.length > 0 && !instr.assembly.includes(":")
       );
       for (let instr of filteredTable) {
         for (let binary of instr.binary) {
@@ -63,9 +63,9 @@ const Simulator = () => {
 
   const fetchSimulator = async (fileContent: string[] | null) => {
     if (fileContent) {
-      const { output: binaryList, mappingDetail } = assemble(fileContent, true);
+      const {output: binaryList, mappingDetail} = assemble(fileContent, true);
       setMappingTable(mappingDetail);
-      console.log("mapping Detail : ", mappingDetail)
+      console.log("mapping Detail : ", mappingDetail);
       const {result, history} = await simulator(fileContent, 1000, true);
       setResultState(result);
       setHistoryState(history);
@@ -78,12 +78,14 @@ const Simulator = () => {
 
   const handleCounterNext = () => {
     if (historyState) {
-      setPc((prev) => (historyState.length <= prev + space ? prev : prev + space));
+      setPc((prev) =>
+        historyState.length <= prev + space ? prev : prev + space
+      );
     }
   };
 
   const handleCounterPrevious = () => {
-    setPc((prev) => (prev - space>= 0 ? prev - space : prev));
+    setPc((prev) => (prev - space >= 0 ? prev - space : prev));
   };
 
   useEffect(() => {
