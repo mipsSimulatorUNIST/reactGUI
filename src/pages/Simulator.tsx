@@ -1,8 +1,8 @@
-import {assemble, simulator} from "mips-simulator-js";
-import {SimulatorBody} from "../styles/theme";
+import {useEffect, useState} from "react";
 import {useRecoilValue} from "recoil";
 import {IMapDetail, selectedFileContentState} from "../recoil/state";
-import {useEffect, useState} from "react";
+import {assemble, simulator} from "mips-simulator-js";
+import {SimulatorBody} from "../styles/theme";
 import {simulatorOutputType} from "mips-simulator-js/dist/src/utils/functions";
 
 import AssembleFilePanel from "../components/simulator/AssembleFilePanel";
@@ -18,9 +18,7 @@ export interface instructionSet {
 }
 const Simulator = () => {
   const fileContent = useRecoilValue(selectedFileContentState);
-  const [resultState, setResultState] = useState<simulatorOutputType | null>(
-    null
-  );
+  const [, setResultState] = useState<simulatorOutputType | null>(null);
   const [historyState, setHistoryState] = useState<
     simulatorOutputType[] | null
   >(null);
@@ -63,7 +61,7 @@ const Simulator = () => {
 
   const fetchSimulator = async (fileContent: string[] | null) => {
     if (fileContent) {
-      const { output: binaryList, mappingDetail } = assemble(fileContent, true);
+      const {mappingDetail} = assemble(fileContent, true);
       setMappingTable(mappingDetail);
       console.log("mapping Detail : ", mappingDetail)
       const {result, history} = await simulator(fileContent, 1000, true);

@@ -1,13 +1,13 @@
+import {useEffect} from "react";
 import {useRecoilState, useRecoilValue} from "recoil";
 import {
   assemblyExecutedLine,
   selectedAssemblyFileState,
   selectedFileContentState,
 } from "../../recoil/state";
-import ClickablePanel from "../common/ClickablePanel";
-import {useEffect} from "react";
-import {HL_ORANGE} from "../../styles/color";
 import TopTab from "../common/TopTab";
+import ClickablePanel from "../common/ClickablePanel";
+import {HL_ORANGE} from "../../styles/color";
 
 const AssembleFilePanel = () => {
   const selectedAssemblyFile = useRecoilValue(selectedAssemblyFileState);

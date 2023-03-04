@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { PanelTitle } from "../../styles/panelStyle";
-
-import playIcon from "../../assets/icons/play.png";
-import resetIcon from "../../assets/icons/reset.png";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
   assemblyExecutedLine,
   selectedFileContentState,
 } from "../../recoil/state";
-import { useRecoilState, useRecoilValue } from "recoil";
+
+import { PanelTitle } from "../../styles/panelStyle";
+import playIcon from "../../assets/icons/play.png";
+import resetIcon from "../../assets/icons/reset.png";
 
 const TopTab = ({ title, isBinary }: { title: string; isBinary: boolean }) => {
   const [, setHighlightNumbers] = useRecoilState(assemblyExecutedLine);

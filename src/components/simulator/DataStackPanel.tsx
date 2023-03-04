@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
-import {BG, GREY42} from "../../styles/color";
-import {MainText, PanelDisplay, PanelMargin} from "../../styles/panelStyle";
 import TopTab from "../common/TopTab";
+import {MainText, PanelDisplay, PanelMargin} from "../../styles/panelStyle";
+import {BG, GREY42} from "../../styles/color";
 
 const DataStackPanel = ({data, stack}: {data: object; stack: object}) => {
   const [dataList, setDataList] = useState<string[]>([]);

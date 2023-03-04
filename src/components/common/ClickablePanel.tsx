@@ -11,7 +11,6 @@ import {
   HoveringInfo,
   Line,
   MainNumber,
-  MainText,
   PanelBody,
   PanelDisplay,
   PanelMargin,

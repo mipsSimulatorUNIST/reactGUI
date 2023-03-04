@@ -1,8 +1,9 @@
+import TopTab from "../common/TopTab";
+import {instructionSet} from "../../pages/Simulator";
 import {GREY42, GREYD4, TEXT_GREEN} from "../../styles/color";
 import {MainText, PanelDisplay, PanelMargin} from "../../styles/panelStyle";
-import TopTab from "../common/TopTab";
 import {simulatorOutputType} from "mips-simulator-js/dist/src/utils/functions";
-import {instructionSet} from "../../pages/Simulator";
+
 export const objectDiff = (curState: any, prevState: any) => {
   interface changeForm {
     address: string;
