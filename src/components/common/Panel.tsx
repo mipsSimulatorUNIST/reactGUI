@@ -1,4 +1,8 @@
-import {MainText, PanelDisplay, PanelMargin} from "../../styles/panelStyle";
+import {
+  HighlightedText,
+  PanelDisplay,
+  PanelMargin,
+} from "../../styles/panelStyle";
 import {BG} from "../../styles/color";
 
 const Panel = ({
@@ -26,13 +30,13 @@ const Panel = ({
               backgroundColor: BG,
             }}
           >
-            <MainText
+            <HighlightedText
               isHighlighted={highlightNumbers.includes(index)}
               color={highlightColor}
               style={{paddingLeft: "40px"}}
             >
               {ele}
-            </MainText>
+            </HighlightedText>
           </div>
         );
       })}

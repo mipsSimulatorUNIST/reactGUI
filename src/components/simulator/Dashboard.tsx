@@ -2,6 +2,7 @@ import {GREY42, GREYD4, TEXT_GREEN} from "../../styles/color";
 import {MainText, PanelDisplay, PanelMargin} from "../../styles/panelStyle";
 import TopTab from "../common/TopTab";
 import {simulatorOutputType} from "mips-simulator-js/dist/src/utils/functions";
+import {instructionSet} from "../../pages/Simulator";
 export const objectDiff = (curState: any, prevState: any) => {
   interface changeForm {
     address: string;
@@ -38,12 +39,15 @@ export const objectDiff = (curState: any, prevState: any) => {
   }
   return displayList;
 };
+
 const Dashboard = ({
   curState,
   prevState,
+  instrState,
 }: {
   curState: simulatorOutputType;
   prevState: simulatorOutputType;
+  instrState: instructionSet;
 }) => {
   return (
     <div
@@ -58,39 +62,17 @@ const Dashboard = ({
         height={"367px"}
         style={{textAlign: "left"}}
       >
-        <MainText isHighlighted={false} color={""}>
-          PC: {curState ? curState.PC : 0}
+        <MainText>PC: {curState ? curState.PC : 0}</MainText>
+        <MainText>실행된 어셈블리 코드</MainText>
+        <MainText style={{color: TEXT_GREEN, marginBottom: "20px"}}>
+          {instrState.assembly}
         </MainText>
-        <MainText isHighlighted={false} color={""}>
-          실행된 어셈블리 코드
+        <MainText>실행된 바이너리 코드</MainText>
+        <MainText style={{color: TEXT_GREEN, marginBottom: "20px"}}>
+          {instrState.binary}
         </MainText>
-        <MainText
-          isHighlighted={false}
-          color={""}
-          style={{color: TEXT_GREEN, marginBottom: "20px"}}
-        >
-          and $17, $17, $0
-          {/* {curState.instruction.assembly} */}
-        </MainText>
-        <MainText isHighlighted={false} color={""}>
-          실행된 바이너리 코드
-        </MainText>
-        <MainText
-          isHighlighted={false}
-          color={""}
-          style={{color: TEXT_GREEN, marginBottom: "20px"}}
-        >
-          00000010001000001000100000100100
-          {/* {curState.instruction.binary} */}
-        </MainText>
-        <MainText isHighlighted={false} color={""}>
-          변경된 레지스터
-        </MainText>
-        <MainText
-          isHighlighted={false}
-          color={""}
-          style={{marginBottom: "20px"}}
-        >
+        <MainText>변경된 레지스터</MainText>
+        <MainText style={{marginBottom: "20px"}}>
           {Object.entries(
             objectDiff(curState.registers, prevState.registers)
           ).map((item, index) => {
@@ -103,14 +85,8 @@ const Dashboard = ({
             );
           })}
         </MainText>
-        <MainText isHighlighted={false} color={""}>
-          변경된 데이터
-        </MainText>
-        <MainText
-          isHighlighted={false}
-          color={""}
-          style={{marginBottom: "20px"}}
-        >
+        <MainText>변경된 데이터</MainText>
+        <MainText style={{marginBottom: "20px"}}>
           {Object.entries(
             objectDiff(curState.dataSection, prevState.dataSection)
           ).map((item, index) => {
@@ -137,14 +113,8 @@ const Dashboard = ({
             );
           })}
         </MainText>
-        <MainText isHighlighted={false} color={""}>
-          변경된 스택
-        </MainText>
-        <MainText
-          isHighlighted={false}
-          color={""}
-          style={{marginBottom: "20px"}}
-        >
+        <MainText>변경된 스택</MainText>
+        <MainText style={{marginBottom: "20px"}}>
           {Object.entries(
             objectDiff(curState.stackSection, prevState.stackSection)
           ).map((item, index) => {

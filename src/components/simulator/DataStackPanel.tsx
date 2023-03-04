@@ -32,11 +32,7 @@ const DataStackPanel = ({data, stack}: {data: object; stack: object}) => {
         }}
       >
         <PanelDisplay width={"442px"} height={"330px"}>
-          <MainText
-            isHighlighted={false}
-            color={""}
-            style={{textAlign: "left", marginBottom: "10px"}}
-          >
+          <MainText style={{textAlign: "left", marginBottom: "10px"}}>
             [Data]
           </MainText>
           {dataList.map((ele, index) => {
@@ -49,15 +45,11 @@ const DataStackPanel = ({data, stack}: {data: object; stack: object}) => {
                   backgroundColor: BG,
                 }}
               >
-                <MainText isHighlighted={false} color={""}>
-                  {ele}
-                </MainText>
+                <MainText>{ele}</MainText>
               </div>
             );
           })}
           <MainText
-            isHighlighted={false}
-            color={""}
             style={{textAlign: "left", marginTop: "20px", marginBottom: "10px"}}
           >
             [Stack]
@@ -72,9 +64,7 @@ const DataStackPanel = ({data, stack}: {data: object; stack: object}) => {
                   backgroundColor: BG,
                 }}
               >
-                <MainText isHighlighted={false} color={""}>
-                  {ele}
-                </MainText>
+                <MainText>{ele}</MainText>
               </div>
             );
           })}

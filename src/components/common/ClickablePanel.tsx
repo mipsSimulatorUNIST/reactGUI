@@ -1,6 +1,6 @@
 import {
   MainNumber,
-  MainText,
+  HighlightedText,
   PanelDisplay,
   PanelMargin,
 } from "../../styles/panelStyle";
@@ -43,12 +43,12 @@ const ClickablePanel = ({
             onMouseOut={() => setHoveringNum(-1)}
           >
             <MainNumber>{index + 1}</MainNumber>
-            <MainText
+            <HighlightedText
               isHighlighted={highlightNumbers.includes(index)}
               color={highlightColor}
             >
               {ele}
-            </MainText>
+            </HighlightedText>
           </div>
         );
       })}

@@ -13,7 +13,10 @@ import DataStackPanel from "../components/simulator/DataStackPanel";
 import {IMapDetail} from "../components/assembler/BinaryFilePanel";
 import ControlBar from "../components/common/ControlBar";
 import {ASSEMTESTDATA} from "../assets/TestData";
-
+export interface instructionSet {
+  assembly: string;
+  binary: string;
+}
 const Simulator = () => {
   const fileContent = useRecoilValue(selectedFileContentState);
   const [resultState, setResultState] = useState<simulatorOutputType | null>(
@@ -22,14 +25,39 @@ const Simulator = () => {
   const [historyState, setHistoryState] = useState<
     simulatorOutputType[] | null
   >(null);
-  const [binaryInstruction, setBinaryInstruction] = useState<string[] | null>(
-    null
-  );
   const [mappingTable, setMappingTable] = useState<IMapDetail[] | null>(null);
   const [pc, setPc] = useState<number>(0);
   const [curState, setCurState] = useState<simulatorOutputType>();
   const [prevState, setPrevState] = useState<simulatorOutputType>();
   const [space, setSpace] = useState<number>(1);
+  const [instr, setInstr] = useState<instructionSet>();
+
+  const getInstr = (
+    pc: number,
+    mappingTable: IMapDetail[] | null
+  ): instructionSet => {
+    const lineNumber = (pc - 0x00400000) / 4 + 2;
+    console.log("lineNumber: ", lineNumber);
+    if (mappingTable) {
+      const filteredTable = mappingTable.filter(
+        (instr) => instr.binary.length > 0
+      );
+      for (let instr of filteredTable) {
+        for (let binary of instr.binary) {
+          if (binary.lineNumber === lineNumber) {
+            return {
+              assembly: instr.assembly.trim(),
+              binary: binary.data,
+            };
+          }
+        }
+      }
+    }
+    return {
+      assembly: "",
+      binary: "",
+    };
+  };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSpace(parseInt(e.target.value));
@@ -38,7 +66,6 @@ const Simulator = () => {
   const fetchSimulator = async (fileContent: string[] | null) => {
     if (fileContent) {
       const {output: binaryList, mappingDetail} = ASSEMTESTDATA;
-      setBinaryInstruction(binaryList);
       setMappingTable(mappingDetail);
       const {result, history} = await simulator(fileContent, 1000, true);
       setResultState(result);
@@ -83,8 +110,10 @@ const Simulator = () => {
         setPrevState(prev);
         return historyState[pc];
       });
+      const instrObj = getInstr(parseInt(historyState[pc].PC), mappingTable);
+      setInstr(instrObj);
     }
-  }, [historyState, pc]);
+  }, [historyState, pc, mappingTable]);
 
   return (
     <SimulatorBody>
@@ -112,6 +141,14 @@ const Simulator = () => {
             prevState
               ? prevState
               : {PC: "", registers: {}, dataSection: {}, stackSection: {}}
+          }
+          instrState={
+            instr
+              ? instr
+              : {
+                  assembly: "",
+                  binary: "",
+                }
           }
         />
         <DataStackPanel

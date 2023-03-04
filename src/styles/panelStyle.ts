@@ -46,8 +46,7 @@ interface textHighlight {
   isHighlighted: boolean;
   color: string;
 }
-
-export const MainText = styled.div<textHighlight>`
+export const MainText = styled.div`
   flex: 1;
   padding-left: 18px;
   font-size: 16px;
@@ -55,5 +54,8 @@ export const MainText = styled.div<textHighlight>`
   color: ${GREYD4};
   white-space: pre-wrap;
   font-family: RobotoMonoTTFMedium;
+`;
+
+export const HighlightedText = styled(MainText)<textHighlight>`
   background-color: ${(props) => (props.isHighlighted ? props.color : BG)};
 `;
