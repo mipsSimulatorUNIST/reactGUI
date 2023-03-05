@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
-import { IMapDetail, selectedFileContentState } from "../recoil/state";
-import { assemble, simulator } from "mips-simulator-js";
-import { SimulatorBody } from "../styles/theme";
-import { simulatorOutputType } from "mips-simulator-js/dist/src/utils/functions";
+import {useEffect, useState} from "react";
+import {useRecoilValue} from "recoil";
+import {IMapDetail, selectedFileContentState} from "../recoil/state";
+import {assemble, simulator} from "mips-simulator-js";
+import {SimulatorBody} from "../styles/theme";
+import {simulatorOutputType} from "mips-simulator-js/dist/src/utils/functions";
 
 import AssembleFilePanel from "../components/simulator/AssembleFilePanel";
 import FileSelector from "../components/common/FileSelector";
@@ -13,12 +13,13 @@ import DataStackPanel from "../components/simulator/DataStackPanel";
 import ControlBar from "../components/common/ControlBar";
 
 export interface instructionSet {
+  key: number | null;
   assembly: string;
   binary: string;
 }
 
-const NULL_STATE = { PC: "", registers: {}, dataSection: {}, stackSection: {} };
-const NULL_INSTR = { assembly: "", binary: "" };
+const NULL_STATE = {PC: "", registers: {}, dataSection: {}, stackSection: {}};
+const NULL_INSTR = {key: null, assembly: "", binary: ""};
 
 const getInstr = (
   pc: number,
@@ -33,6 +34,7 @@ const getInstr = (
       for (let binary of instr.binary) {
         if (binary.lineNumber === lineNumber) {
           return {
+            key: instr.key,
             assembly: instr.assembly.trim(),
             binary: binary.data,
           };
@@ -62,8 +64,8 @@ const Simulator = () => {
 
   const fetchSimulator = async (fileContent: string[] | null) => {
     if (fileContent) {
-      const { mappingDetail } = await assemble(fileContent, true);
-      const { result, history } = await simulator(fileContent, 1000, true);
+      const {mappingDetail} = await assemble(fileContent, true);
+      const {result, history} = await simulator(fileContent, 1000, true);
 
       setMappingTable(mappingDetail);
       setResultState(result);
@@ -107,7 +109,7 @@ const Simulator = () => {
   return (
     <SimulatorBody>
       <FileSelector />
-      <AssembleFilePanel />
+      <AssembleFilePanel highlighted={instr ? instr.key : null} />
       <RegisterPanel
         register={curState ? curState.registers : []}
         prev={prevState ? prevState.registers : []}
