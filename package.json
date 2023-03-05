@@ -1,6 +1,7 @@
 {
   "name": "mipsgui",
   "version": "0.1.0",
+  "homepage": "https://mipssimulatorunist.github.io/reactGUI/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -26,7 +27,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build --base /reactGUI/",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "./node_modules/.bin/eslint ."
