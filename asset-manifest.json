@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.js": "/static/js/main.c8a5b327.js",
+    "static/media/RobotoMono-Light.ttf": "/static/media/RobotoMono-Light.df831128177218a77ee7.ttf",
+    "static/media/RobotoMono-Bold.ttf": "/static/media/RobotoMono-Bold.75b94c9034e8b3eabc95.ttf",
+    "static/media/RobotoMono-Medium.ttf": "/static/media/RobotoMono-Medium.4a31449c446f644be364.ttf",
+    "index.html": "/index.html",
+    "main.c8a5b327.js.map": "/static/js/main.c8a5b327.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.c8a5b327.js"
+  ]
+}
