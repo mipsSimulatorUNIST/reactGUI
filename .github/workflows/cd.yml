@@ -1,5 +1,7 @@
 name: Deployment
-on: [push, pull_request]
+on:
+  push:
+    branches: ["main"]
 jobs:
   deploy:
     runs-on: ubuntu-latest
