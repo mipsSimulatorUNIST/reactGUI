@@ -1,5 +1,5 @@
-import {useEffect} from "react";
-import {useRecoilState, useRecoilValue} from "recoil";
+import { useEffect } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
   assemblyExecutedLine,
   selectedAssemblyFileState,
@@ -7,7 +7,7 @@ import {
 } from "../../recoil/state";
 import TopTab from "../common/TopTab";
 import ClickablePanel from "../common/ClickablePanel";
-import {HL_ORANGE} from "../../styles/color";
+import { HL_ORANGE } from "../../styles/color";
 
 const AssembleFilePanel = () => {
   const selectedAssemblyFile = useRecoilValue(selectedAssemblyFileState);
@@ -29,7 +29,7 @@ const AssembleFilePanel = () => {
   }, [selectedAssemblyFile, setFileContent]);
 
   return (
-    <div style={{flexDirection: "row"}}>
+    <div style={{ flexDirection: "row" }}>
       <TopTab title={selectedAssemblyFile} isBinary={false} />
       <ClickablePanel
         highlightNumbers={highlightNumbers}
@@ -37,7 +37,7 @@ const AssembleFilePanel = () => {
         highlightColor={HL_ORANGE}
         width={"420px"}
         height={"740px"}
-        type={"assemble"}
+        type={"assembly"}
       />
     </div>
   );
