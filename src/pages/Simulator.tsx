@@ -1,9 +1,9 @@
-import {useEffect, useState} from "react";
-import {useRecoilValue} from "recoil";
-import {IMapDetail, selectedFileContentState} from "../recoil/state";
-import {assemble, simulator} from "mips-simulator-js";
-import {SimulatorBody} from "../styles/theme";
-import {simulatorOutputType} from "mips-simulator-js/dist/src/utils/functions";
+import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
+import { IMapDetail, selectedFileContentState } from "../recoil/state";
+import { assemble, simulator } from "mips-simulator-js";
+import { SimulatorBody } from "../styles/theme";
+import { simulatorOutputType } from "mips-simulator-js/dist/src/utils/functions";
 
 import AssembleFilePanel from "../components/simulator/AssembleFilePanel";
 import FileSelector from "../components/common/FileSelector";
@@ -16,6 +16,33 @@ export interface instructionSet {
   assembly: string;
   binary: string;
 }
+
+const NULL_STATE = { PC: "", registers: {}, dataSection: {}, stackSection: {} };
+const NULL_INSTR = { assembly: "", binary: "" };
+
+const getInstr = (
+  pc: number,
+  mappingTable: IMapDetail[] | null
+): instructionSet => {
+  const lineNumber = (pc - 0x00400000) / 4 + 2;
+  if (mappingTable) {
+    const filteredTable = mappingTable.filter(
+      (instr) => instr.binary.length > 0 && !instr.assembly.includes(":")
+    );
+    for (let instr of filteredTable) {
+      for (let binary of instr.binary) {
+        if (binary.lineNumber === lineNumber) {
+          return {
+            assembly: instr.assembly.trim(),
+            binary: binary.data,
+          };
+        }
+      }
+    }
+  }
+  return NULL_INSTR;
+};
+
 const Simulator = () => {
   const fileContent = useRecoilValue(selectedFileContentState);
   const [, setResultState] = useState<simulatorOutputType | null>(null);
@@ -29,44 +56,19 @@ const Simulator = () => {
   const [space, setSpace] = useState<number>(1);
   const [instr, setInstr] = useState<instructionSet>();
 
-  const getInstr = (
-    pc: number,
-    mappingTable: IMapDetail[] | null
-  ): instructionSet => {
-    const lineNumber = (pc - 0x00400000) / 4 + 2;
-    if (mappingTable) {
-      const filteredTable = mappingTable.filter(
-        (instr) => instr.binary.length > 0 && !instr.assembly.includes(":")
-      );
-      for (let instr of filteredTable) {
-        for (let binary of instr.binary) {
-          if (binary.lineNumber === lineNumber) {
-            return {
-              assembly: instr.assembly.trim(),
-              binary: binary.data,
-            };
-          }
-        }
-      }
-    }
-    return {
-      assembly: "",
-      binary: "",
-    };
-  };
-
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSpace(parseInt(e.target.value));
   };
 
   const fetchSimulator = async (fileContent: string[] | null) => {
     if (fileContent) {
-      const {mappingDetail} = assemble(fileContent, true);
+      const { mappingDetail } = await assemble(fileContent, true);
+      const { result, history } = await simulator(fileContent, 1000, true);
+
       setMappingTable(mappingDetail);
-      console.log("mapping Detail : ", mappingDetail);
-      const {result, history} = await simulator(fileContent, 1000, true);
       setResultState(result);
       setHistoryState(history);
+
       if (history) {
         setCurState(history[0]);
         setPrevState(history[0]);
@@ -119,24 +121,9 @@ const Simulator = () => {
       />
       <div>
         <Dashboard
-          curState={
-            curState
-              ? curState
-              : {PC: "", registers: {}, dataSection: {}, stackSection: {}}
-          }
-          prevState={
-            prevState
-              ? prevState
-              : {PC: "", registers: {}, dataSection: {}, stackSection: {}}
-          }
-          instrState={
-            instr
-              ? instr
-              : {
-                  assembly: "",
-                  binary: "",
-                }
-          }
+          curState={curState || NULL_STATE}
+          prevState={prevState || NULL_STATE}
+          instrState={instr || NULL_INSTR}
         />
         <DataStackPanel
           data={curState ? curState.dataSection : []}
