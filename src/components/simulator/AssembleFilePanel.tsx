@@ -1,7 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
-  assemblyExecutedLine,
   selectedAssemblyFileState,
   selectedFileContentState,
 } from "../../recoil/state";
@@ -9,12 +8,12 @@ import TopTab from "../common/TopTab";
 import ClickablePanel from "../common/ClickablePanel";
 import { HL_ORANGE } from "../../styles/color";
 
-const AssembleFilePanel = () => {
+const AssembleFilePanel = ({ highlighted }: { highlighted: number | null }) => {
   const selectedAssemblyFile = useRecoilValue(selectedAssemblyFileState);
   const [fileContent, setFileContent] = useRecoilState(
     selectedFileContentState
   );
-  const highlightNumbers = useRecoilValue(assemblyExecutedLine);
+  const [highlightedList, setHighlightedList] = useState<number[]>([]);
 
   useEffect(() => {
     const fetchFile = async (filePath: string) => {
@@ -28,16 +27,24 @@ const AssembleFilePanel = () => {
     fetchFile(filePath);
   }, [selectedAssemblyFile, setFileContent]);
 
+  useEffect(() => {
+    const newHighlighted: number[] = [];
+    if (highlighted) {
+      newHighlighted.push(highlighted);
+    }
+    setHighlightedList(newHighlighted);
+  }, [highlighted]);
+
   return (
     <div style={{ flexDirection: "row" }}>
       <TopTab title={selectedAssemblyFile} isBinary={false} />
       <ClickablePanel
-        highlightNumbers={highlightNumbers}
+        highlightNumbers={highlightedList}
         data={fileContent ? fileContent : []}
         highlightColor={HL_ORANGE}
         width={"420px"}
         height={"740px"}
-        type={"assembly"}
+        type={"simulator"}
       />
     </div>
   );

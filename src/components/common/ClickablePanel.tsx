@@ -86,7 +86,7 @@ const ClickablePanel = ({
   data: string[];
   highlightColor: string;
   width: string;
-  height:string;
+  height: string;
   type: string;
 }) => {
   const [, setHighlightNumbers] = useRecoilState(assemblyExecutedLine);
@@ -137,7 +137,7 @@ const ClickablePanel = ({
   };
 
   return (
-    <PanelDisplay width={width} height={height} >
+    <PanelDisplay width={width} height={height}>
       <PanelBody>
         {data.map((ele, index) => {
           return (
@@ -153,7 +153,9 @@ const ClickablePanel = ({
                 <HighlightedText
                   isHighlighted={highlightNumbers.includes(index)}
                   isHovered={
-                    type === "assembly"
+                    type === "simulator"
+                      ? false
+                      : type === "assembly"
                       ? assemblyHoveringNum?.includes(index)
                       : binaryHoveringNum?.includes(index)
                   }
