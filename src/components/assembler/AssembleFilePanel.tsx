@@ -1,41 +1,30 @@
-import {useRecoilState, useRecoilValue} from "recoil";
+import { useRecoilValue } from "recoil";
 import {
-  assemblyExecutedLine,
   selectedAssemblyFileState,
   selectedFileContentState,
 } from "../../recoil/state";
-import Panel from "../common/Panel";
-import {useEffect} from "react";
-import {HL_ORANGE} from "../../styles/color";
+import ClickablePanel from "../common/ClickablePanel";
 import TopTab from "../common/TopTab";
+import { HL_ORANGE } from "../../styles/color";
 
-const AssembleFilePanel = () => {
+const AssembleFilePanel = ({
+  highlightNumbers,
+}: {
+  highlightNumbers: number[];
+}) => {
   const selectedAssemblyFile = useRecoilValue(selectedAssemblyFileState);
-  const [fileContent, setFileContent] = useRecoilState(
-    selectedFileContentState
-  );
-  const highlightNumbers = useRecoilValue(assemblyExecutedLine);
-
-  useEffect(() => {
-    const fetchFile = async (filePath: string) => {
-      await fetch(filePath)
-        .then((response) => response.text())
-        .then((text) => {
-          setFileContent(text.split("\n"));
-        });
-    };
-    const filePath = `sample_input/${selectedAssemblyFile}`;
-    fetchFile(filePath);
-  }, [selectedAssemblyFile, setFileContent]);
+  const fileContent = useRecoilValue(selectedFileContentState);
 
   return (
-    <div style={{flexDirection: "row"}}>
+    <div style={{ flexDirection: "row" }}>
       <TopTab title={selectedAssemblyFile} isBinary={false} />
-      <Panel
-        data={fileContent ? fileContent : []}
+      <ClickablePanel
         highlightNumbers={highlightNumbers}
+        data={fileContent || []}
         highlightColor={HL_ORANGE}
         width={"592px"}
+        height={"740px"}
+        type={"assembly"}
       />
     </div>
   );

@@ -1,87 +1,135 @@
-import { simulator } from "mips-simulator-js";
-import AssembleFilePanel from "../components/assembler/AssembleFilePanel";
-import FileSelector from "../components/common/FileSelector";
-import Panel from "../components/common/Panel";
-import { HL_ORANGE } from "../styles/color";
-import { SimulatorBody } from "../styles/theme";
-import { useRecoilValue } from "recoil";
-import { selectedFileContentState } from "../recoil/state";
 import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
+import { IMapDetail, selectedFileContentState } from "../recoil/state";
+import { assemble, simulator } from "mips-simulator-js";
+import { SimulatorBody } from "../styles/theme";
 import { simulatorOutputType } from "mips-simulator-js/dist/src/utils/functions";
+
+import AssembleFilePanel from "../components/simulator/AssembleFilePanel";
+import FileSelector from "../components/common/FileSelector";
+import RegisterPanel from "../components/simulator/RegisterPanel";
+import Dashboard from "../components/simulator/Dashboard";
+import DataStackPanel from "../components/simulator/DataStackPanel";
+import ControlBar from "../components/common/ControlBar";
+
+export interface instructionSet {
+  assembly: string;
+  binary: string;
+}
+
+const NULL_STATE = { PC: "", registers: {}, dataSection: {}, stackSection: {} };
+const NULL_INSTR = { assembly: "", binary: "" };
+
+const getInstr = (
+  pc: number,
+  mappingTable: IMapDetail[] | null
+): instructionSet => {
+  const lineNumber = (pc - 0x00400000) / 4 + 2;
+  if (mappingTable) {
+    const filteredTable = mappingTable.filter(
+      (instr) => instr.binary.length > 0 && !instr.assembly.includes(":")
+    );
+    for (let instr of filteredTable) {
+      for (let binary of instr.binary) {
+        if (binary.lineNumber === lineNumber) {
+          return {
+            assembly: instr.assembly.trim(),
+            binary: binary.data,
+          };
+        }
+      }
+    }
+  }
+  return NULL_INSTR;
+};
 
 const Simulator = () => {
   const fileContent = useRecoilValue(selectedFileContentState);
-  const [resultState, setResultState] = useState<simulatorOutputType | null>(
-    null
-  );
+  const [, setResultState] = useState<simulatorOutputType | null>(null);
   const [historyState, setHistoryState] = useState<
     simulatorOutputType[] | null
   >(null);
-  const [pc, setPc] = useState(0);
-  const [register, setRegister] = useState<string[]>([]);
+  const [mappingTable, setMappingTable] = useState<IMapDetail[] | null>(null);
+  const [pc, setPc] = useState<number>(0);
+  const [curState, setCurState] = useState<simulatorOutputType>();
+  const [prevState, setPrevState] = useState<simulatorOutputType>();
+  const [space, setSpace] = useState<number>(1);
+  const [instr, setInstr] = useState<instructionSet>();
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSpace(parseInt(e.target.value));
+  };
 
   const fetchSimulator = async (fileContent: string[] | null) => {
     if (fileContent) {
+      const { mappingDetail } = await assemble(fileContent, true);
       const { result, history } = await simulator(fileContent, 1000, true);
+
+      setMappingTable(mappingDetail);
       setResultState(result);
       setHistoryState(history);
+
+      if (history) {
+        setCurState(history[0]);
+        setPrevState(history[0]);
+      }
     }
   };
 
   const handleCounterNext = () => {
     if (historyState) {
-      const historySize = historyState.length;
-      setPc((prev) => {
-        if (historySize <= prev + 1) {
-          return prev;
-        } else return prev + 1;
-      });
+      setPc((prev) =>
+        historyState.length <= prev + space ? prev : prev + space
+      );
     }
   };
 
   const handleCounterPrevious = () => {
-    setPc((prev) => {
-      if (prev > 0) {
-        return prev - 1;
-      } else return prev;
-    });
+    setPc((prev) => (prev - space >= 0 ? prev - space : prev));
   };
 
   useEffect(() => {
     fetchSimulator(fileContent);
     setPc(0);
-    return () => {};
   }, [fileContent]);
 
   useEffect(() => {
     if (historyState) {
-      console.log("REACT result: ", resultState);
-      console.log("REACT history: ", historyState);
-      console.log(historyState ? historyState[pc].registers : ["loading"]);
-
-      const entries = Object.entries(historyState[pc].registers);
-      const newRegister = [];
-      for (let i = 0; i < entries.length; i++) {
-        const v = entries[i][1];
-        newRegister.push(v);
-      }
-      setRegister(newRegister);
+      setCurState((prev) => {
+        setPrevState(prev);
+        return historyState[pc];
+      });
+      const instrObj = getInstr(parseInt(historyState[pc].PC), mappingTable);
+      setInstr(instrObj);
     }
-  }, [resultState, historyState, pc]);
+  }, [historyState, pc, mappingTable]);
 
   return (
     <SimulatorBody>
       <FileSelector />
-      <div>{pc}</div>
-      <button onClick={handleCounterPrevious}>previous</button>
-      <button onClick={handleCounterNext}>next</button>
       <AssembleFilePanel />
-      <Panel
-        data={register ? register : ["loading"]}
-        highlightNumbers={[1, 3, 5]}
-        highlightColor={HL_ORANGE}
-        width={"592px"}
+      <RegisterPanel
+        register={curState ? curState.registers : []}
+        prev={prevState ? prevState.registers : []}
       />
+      <ControlBar
+        cycle={pc}
+        onChange={onChange}
+        handleCounterNext={handleCounterNext}
+        handleCounterPrevious={handleCounterPrevious}
+        space={space}
+      />
+      <div>
+        <Dashboard
+          curState={curState || NULL_STATE}
+          prevState={prevState || NULL_STATE}
+          instrState={instr || NULL_INSTR}
+        />
+        <DataStackPanel
+          data={curState ? curState.dataSection : []}
+          stack={curState ? curState.stackSection : []}
+        />
+      </div>
     </SimulatorBody>
   );
 };

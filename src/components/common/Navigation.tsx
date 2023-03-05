@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { NavigationDisplay, StyledLink } from "../../styles/theme";
+import { useLocation } from "react-router-dom";
 
 import assemblerWhite from "../../assets/icons/assemblerWhite.png";
 import assemblerGrey from "../../assets/icons/assemblerGrey.png";
 import simulatorWhite from "../../assets/icons/simulatorWhite.png";
 import simulatorGrey from "../../assets/icons/simulatorGrey.png";
-import { useLocation } from "react-router-dom";
 
 const Navigation = () => {
   const [curTab, setCurTab] = useState("assembler");
   const location = useLocation();
+
   useEffect(() => {
     const currentPath = location.pathname;
     if (currentPath === "/") setCurTab("assembler");

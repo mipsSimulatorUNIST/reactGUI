@@ -1,10 +1,10 @@
-import {FileSelectorDisplay, SelectedFile} from "../../styles/theme";
 import {useRef} from "react";
 import {useRecoilState} from "recoil";
 import {
   assemblyExecutedLine,
   selectedAssemblyFileState,
 } from "../../recoil/state";
+import {FileSelectorDisplay, SelectedFile} from "../../styles/theme";
 import {GREY373D, GREY58} from "../../styles/color";
 
 const FileSelector = () => {
