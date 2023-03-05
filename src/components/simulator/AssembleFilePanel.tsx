@@ -1,14 +1,14 @@
-import {useEffect, useState} from "react";
-import {useRecoilState, useRecoilValue} from "recoil";
+import { useEffect, useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
   selectedAssemblyFileState,
   selectedFileContentState,
 } from "../../recoil/state";
 import TopTab from "../common/TopTab";
 import ClickablePanel from "../common/ClickablePanel";
-import {HL_ORANGE} from "../../styles/color";
+import { HL_ORANGE } from "../../styles/color";
 
-const AssembleFilePanel = ({highlighted}: {highlighted: number | null}) => {
+const AssembleFilePanel = ({ highlighted }: { highlighted: number | null }) => {
   const selectedAssemblyFile = useRecoilValue(selectedAssemblyFileState);
   const [fileContent, setFileContent] = useRecoilState(
     selectedFileContentState
@@ -36,7 +36,7 @@ const AssembleFilePanel = ({highlighted}: {highlighted: number | null}) => {
   }, [highlighted]);
 
   return (
-    <div style={{flexDirection: "row"}}>
+    <div style={{ flexDirection: "row" }}>
       <TopTab title={selectedAssemblyFile} isBinary={false} />
       <ClickablePanel
         highlightNumbers={highlightedList}
@@ -44,7 +44,7 @@ const AssembleFilePanel = ({highlighted}: {highlighted: number | null}) => {
         highlightColor={HL_ORANGE}
         width={"420px"}
         height={"740px"}
-        type={"assembly"}
+        type={"simulator"}
       />
     </div>
   );
