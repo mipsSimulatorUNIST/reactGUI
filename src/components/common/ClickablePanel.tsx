@@ -1,4 +1,4 @@
-import { useRecoilState, useRecoilValue } from "recoil";
+import {useRecoilState, useRecoilValue} from "recoil";
 import {
   IMapDetail,
   assemblyExecutedLine,
@@ -66,7 +66,7 @@ const getHoverInfo = (
       (index) => (assemblyInstruction += mappingTable[index]["assembly"])
     );
 
-    return type === "assembly"
+    return type === "assembly" || type === "simulator"
       ? mappingTable[assemblyLineNum]["binary"][0]["data"]
       : assemblyInstruction;
   } else {
