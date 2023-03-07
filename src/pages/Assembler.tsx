@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import React, {useCallback, useEffect, useState} from "react";
+import {useRecoilState, useRecoilValue} from "recoil";
 import {
   assemblyExecutedLine,
   binaryInstructionsOutput,
@@ -7,8 +7,8 @@ import {
   selectedFileContentState,
   selectedAssemblyFileState,
 } from "../recoil/state";
-import { AssemblerBody } from "../styles/theme";
-import { assemble } from "mips-simulator-js";
+import {AssemblerBody} from "../styles/theme";
+import {assemble} from "mips-simulator-js";
 import AssembleFilePanel from "../components/assembler/AssembleFilePanel";
 import BinaryFilePanel from "../components/assembler/BinaryFilePanel";
 import FileSelector from "../components/common/FileSelector";
@@ -40,7 +40,7 @@ const Assembler = () => {
 
   const saveOutput = useCallback(() => {
     if (fileContent) {
-      const { output: binaryList, mappingDetail } = assemble(fileContent, true);
+      const {output: binaryList, mappingDetail} = assemble(fileContent, true);
       setBinaryInstructions(binaryList);
       setMappingTable(mappingDetail);
     }

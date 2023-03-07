@@ -1,6 +1,11 @@
-import {useEffect, useState} from "react";
-import {useRecoilValue} from "recoil";
-import {IMapDetail, selectedFileContentState} from "../recoil/state";
+import {useEffect, useState, useCallback} from "react";
+import {useRecoilState, useRecoilValue} from "recoil";
+import {
+  IMapDetail,
+  binaryInstructionsOutput,
+  selectedFileContentState,
+  mappingTableOutput,
+} from "../recoil/state";
 import {assemble, simulator} from "mips-simulator-js";
 import {SimulatorBody} from "../styles/theme";
 import {simulatorOutputType} from "mips-simulator-js/dist/src/utils/functions";
@@ -47,11 +52,12 @@ const getInstr = (
 
 const Simulator = () => {
   const fileContent = useRecoilValue(selectedFileContentState);
+  const [, setBinaryInstructions] = useRecoilState(binaryInstructionsOutput);
+  const [mappingTable, setMappingTable] = useRecoilState(mappingTableOutput);
   const [, setResultState] = useState<simulatorOutputType | null>(null);
   const [historyState, setHistoryState] = useState<
     simulatorOutputType[] | null
   >(null);
-  const [mappingTable, setMappingTable] = useState<IMapDetail[] | null>(null);
   const [pc, setPc] = useState<number>(0);
   const [curState, setCurState] = useState<simulatorOutputType>();
   const [prevState, setPrevState] = useState<simulatorOutputType>();
@@ -62,21 +68,25 @@ const Simulator = () => {
     setSpace(parseInt(e.target.value));
   };
 
-  const fetchSimulator = async (fileContent: string[] | null) => {
-    if (fileContent) {
-      const {mappingDetail} = await assemble(fileContent, true);
-      const {result, history} = await simulator(fileContent, 1000, true);
+  const fetchSimulator = useCallback(
+    async (fileContent: string[] | null) => {
+      if (fileContent) {
+        const {output: binaryList, mappingDetail} = assemble(fileContent, true);
+        const {result, history} = await simulator(fileContent, 1000, true);
 
-      setMappingTable(mappingDetail);
-      setResultState(result);
-      setHistoryState(history);
+        setBinaryInstructions(binaryList);
+        setMappingTable(mappingDetail);
+        setResultState(result);
+        setHistoryState(history);
 
-      if (history) {
-        setCurState(history[0]);
-        setPrevState(history[0]);
+        if (history) {
+          setCurState(history[0]);
+          setPrevState(history[0]);
+        }
       }
-    }
-  };
+    },
+    [setBinaryInstructions, setMappingTable]
+  );
 
   const handleCounterNext = () => {
     if (historyState) {
@@ -93,7 +103,7 @@ const Simulator = () => {
   useEffect(() => {
     fetchSimulator(fileContent);
     setPc(0);
-  }, [fileContent]);
+  }, [fileContent, fetchSimulator]);
 
   useEffect(() => {
     if (historyState) {
