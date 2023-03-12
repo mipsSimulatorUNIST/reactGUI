@@ -1,22 +1,22 @@
-import React, { useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import React, {useState} from "react";
+import {useRecoilState, useRecoilValue} from "recoil";
 import {
   assemblyExecutedLine,
   selectedFileContentState,
 } from "../../recoil/state";
 
-import { PanelTitle } from "../../styles/panelStyle";
+import {PanelTitle} from "../../styles/panelStyle";
 import playIcon from "../../assets/icons/play.png";
 import resetIcon from "../../assets/icons/reset.png";
 
-const TopTab = ({ title, isBinary }: { title: string; isBinary: boolean }) => {
+const TopTab = ({title, isBinary}: {title: string; isBinary: boolean}) => {
   const [, setHighlightNumbers] = useRecoilState(assemblyExecutedLine);
   const fileContent = useRecoilValue(selectedFileContentState);
 
-  const [isHovering, setIsHovering] = useState({ reset: false, play: false });
+  const [isHovering, setIsHovering] = useState({reset: false, play: false});
 
   return (
-    <div style={{ display: "flex", justifyContent: "space-between" }}>
+    <div style={{display: "flex", justifyContent: "space-between"}}>
       <PanelTitle>{title}</PanelTitle>
 
       {isBinary && (
@@ -34,9 +34,10 @@ const TopTab = ({ title, isBinary }: { title: string; isBinary: boolean }) => {
               width: isHovering.reset ? "24px" : "20px",
               height: isHovering.reset ? "28px" : "24px",
               marginRight: "15px",
+              cursor: "pointer",
             }}
-            onMouseOver={() => setIsHovering({ reset: true, play: false })}
-            onMouseOut={() => setIsHovering({ reset: false, play: false })}
+            onMouseOver={() => setIsHovering({reset: true, play: false})}
+            onMouseOut={() => setIsHovering({reset: false, play: false})}
           />
           <img
             src={playIcon}
@@ -48,12 +49,13 @@ const TopTab = ({ title, isBinary }: { title: string; isBinary: boolean }) => {
                   : [preValues[0] + 1]
               );
             }}
-            onMouseOver={() => setIsHovering({ reset: false, play: true })}
-            onMouseOut={() => setIsHovering({ reset: false, play: false })}
+            onMouseOver={() => setIsHovering({reset: false, play: true})}
+            onMouseOut={() => setIsHovering({reset: false, play: false})}
             style={{
               width: isHovering.play ? "20px" : "16px",
               height: isHovering.play ? "22px" : "18px",
               marginRight: "20px",
+              cursor: "pointer",
             }}
           />
         </div>

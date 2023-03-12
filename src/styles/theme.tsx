@@ -77,6 +77,7 @@ export const SelectedFile = styled.div<selected>`
   border-color: #007fd4;
   border-width: ${(props) =>
     props.selectedAssemblyFile === props.element ? "1px" : "0px"};
+  cursor: pointer;
 `;
 
 export const NoneDragImg = styled.img`

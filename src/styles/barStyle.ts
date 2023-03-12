@@ -32,4 +32,5 @@ export const BarIcon = styled(NoneDragImg)`
   height: 20px;
   margin-left: 10px;
   margin-right: 10px;
+  cursor: pointer;
 `;
