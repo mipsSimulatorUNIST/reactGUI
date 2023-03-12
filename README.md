@@ -1,46 +1,50 @@
-# Getting Started with Create React App
+# MIPS GUI
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This GUI is a step-by-step visualization to help you understand the principles of the MIPS simulator.
 
-## Available Scripts
+It was conducted in conjunction with the [MIPS Simulator](https://www.npmjs.com/package/mips-simulator-js) project, which is an open-source project.
 
-In the project directory, you can run:
+### Getting Started
 
-### `npm start`
+The completed GUI can be found at this [link](https://mipssimulatorunist.github.io/reactGUI/).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Introduction
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+This GUI was developed as REACT and is implemented for `Assembler` and `Simulator`, which are the main functions of MIPS simulator.
 
-### `npm test`
+The first tab implements the [Assembler](#Assembler) function of converting assembly files into binary files, and the second tab implements the [Simulator](#Simulator) that shows how the register data stack changes for each cycle.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Usage
 
-### `npm run build`
+### Assembler
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+> The assembler is divided into `assembly panel` and `binary panel` to show how the assembly language is translated into binary.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Step-by-step translation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   ![assembler1](https://user-images.githubusercontent.com/64965613/224534333-5fdbef0b-f8e3-43a4-b316-bfeb63330aa3.gif)
 
-### `npm run eject`
+2. Specific command selection
+   ![assembler2](https://user-images.githubusercontent.com/64965613/224534335-64ae7e13-d9e7-405f-9b69-0b25d869449d.gif)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Simulator
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+> The simulator shows the commands currently running and displays changes in registers, data, and stacks when you run them.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+![simulator1](https://user-images.githubusercontent.com/64965613/224534337-7f118634-cfb6-475c-bf94-61c6714358a2.gif)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Contribution
 
-## Learn More
+If you want to contribute to [**mips-GUI**](https://mipssimulatorunist.github.io/reactGUI/), please come in [**_Git Repository_**](https://github.com/mipsSimulatorUNIST/reactGUI) and clone!
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+We have completed building CI, and test automation is also ready.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**_Always opening_** to join this project for developing this library.
+
+❗️[_ISSUE_ &rarr;](https://github.com/mipsSimulatorUNIST/reactGUI/issues)
+
+✅ [_Pull Request_ &rarr;](https://github.com/mipsSimulatorUNIST/reactGUI/pulls)
+
+## License
+
+Licensed under the MIT License, Copyright © 2023-present MIPS-Simulator-UNIST
