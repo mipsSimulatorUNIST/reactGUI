@@ -25,7 +25,12 @@ const ControlBar = ({
         <NoneDragImg
           src={draggableIcon}
           alt={"draggable"}
-          style={{width: "15px", height: "24px", marginLeft: "4px"}}
+          style={{
+            width: "15px",
+            height: "24px",
+            marginLeft: "4px",
+            cursor: "pointer",
+          }}
         />
         <BarText>CYCLE: {cycle}</BarText>
         <CenterAlign onClick={handleCounterPrevious}>
