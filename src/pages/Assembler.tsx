@@ -51,7 +51,12 @@ const Assembler = () => {
   }, [fileContent, saveOutput]);
 
   useEffect(() => {
-    const filePath = `sample_input/${selectedAssemblyFile}`;
+    const filePath = `https://mipssimulatorunist.github.io/reactGUI/sample_input/${selectedAssemblyFile}`;
+    // const filePath = `${
+    //   process.env.NODE_ENV === "production"
+    //     ? "https://mipssimulatorunist.github.io/reactGUI/"
+    //     : process.env.REACT_APP_BASEPATH
+    // }sample_input/${selectedAssemblyFile}`;
     fetchFile(filePath);
   }, [selectedAssemblyFile, fetchFile]);
 
