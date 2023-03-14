@@ -37,8 +37,6 @@ The first tab implements the [Assembler](#Assembler) function of converting asse
 
 If you want to contribute to [**mips-GUI**](https://mipssimulatorunist.github.io/reactGUI/), please come in [**_Git Repository_**](https://github.com/mipsSimulatorUNIST/reactGUI) and clone!
 
-We have completed building CI, and test automation is also ready.
-
 **_Always opening_** to join this project for developing this library.
 
 ❗️[_ISSUE_ &rarr;](https://github.com/mipsSimulatorUNIST/reactGUI/issues)
