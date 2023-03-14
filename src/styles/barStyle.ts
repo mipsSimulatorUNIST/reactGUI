@@ -10,8 +10,8 @@ export const BarDisplay = styled.div`
   align-items: center;
   position: absolute;
   height: 40px;
-  left: 100px;
-  bottom: 100px;
+  top: 0px;
+  right: 0px;
   border: 1px solid powderblue;
   box-shadow: 4px 4px 8px #000;
 `;
