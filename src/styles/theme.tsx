@@ -44,6 +44,7 @@ export const FileSelectorDisplay = styled.div`
 
 export const SimulatorBody = styled(Body)`
   background-color: ${ROOTBG};
+  position: relative;
 `;
 
 export const CacheBody = styled(Body)`
